@@ -24,8 +24,6 @@
   <a href="#fitur">Fitur</a> •
   <a href="#download">Download & Install</a> •
   <a href="#akun">Akun Default</a> •
-  <a href="#dukungan">Dukungan</a> •
-  <a href="#lisensi">Lisensi</a>
 </p>
 
 <p></p>
