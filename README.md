@@ -66,8 +66,8 @@ Untuk menjalankan aplikasi atau web ini kamu harus install XAMPP atau web server
 # Clone repository ini atau download di
 $ git clone https://github.com/syauqi/restawrant.git
 
-# Kemudian jalankan command composer install, ini akan menginstall resources yang laravel butuhkan
-$ composer install
+# Kemudian jalankan command composer update, ini akan menginstall resources yang laravel butuhkan
+$ composer update
 
 # Lakukan copy .env dengan cara ketik command seperti dibawah
 $ cp .env.example .env
