@@ -21,7 +21,7 @@ Route::post('/reservation/step-one', [FrontendReservationController::class, 'sto
 Route::get('/reservation/step-two', [FrontendReservationController::class, 'stepTwo'])->name('reservations.step.two');
 Route::post('/reservation/step-two', [FrontendReservationController::class, 'storeStepTwo'])->name('reservations.store.step.two');
 Route::get('/thankyou', [WelcomeController::class, 'thankyou'])->name('thankyou');
-
+Route::get('/menu/{id}', [FrontendMenuController::class, 'show'])->name('menus.show');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

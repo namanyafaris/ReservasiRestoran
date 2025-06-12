@@ -40,6 +40,26 @@
                             @enderror
                         </div>
 
+                        <!-- <div class="col-md-12">
+                            <label for="jenis_kelamin_input" class="form-label">Pilih Kategori</label>
+                            <select name="table_id" id="jenis_kelamin_input" class="form-select">
+                                <option selected>Pilih Meja ...</option>
+                                @forelse ($tables as $table)
+                                    <option value="{{ $table->id }}" @selected($table->id == $reservation->table_id)>
+                                        {{ $table->name }}
+                                        ({{ $table->guest_number }} Guests)
+                                    </option>
+                                @empty
+                                    <option value="">
+                                        Tidak ada meja yang tersedia :()
+                                    </option>
+                                @endforelse
+                            </select>
+                            @error('table_id')
+                                <p class="register_text_error">{{ $message }}</p>
+                            @enderror
+                        </div> -->
+
                         <div class="col-md-12 mx-auto mt-4 text-center">
                             <p class="text-center col-md-8 mx-auto">
                                 Dengan menekan tombol 'buat reservasi' berarti anda menyatakan setuju dan siap
