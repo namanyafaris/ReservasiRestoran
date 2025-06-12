@@ -4,14 +4,33 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
+use App\Models\Category;
 use Illuminate\Http\Request;
+
 
 class MenuController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $menus = Menu::all();
+        $categories = Category::all();
+        $menus = Menu::query();
 
-        return view('menus.index', compact('menus'));
+        // Filter kategori
+        if ($request->has('categories') && is_array($request->categories)) {
+            $menus->whereHas('categories', function ($q) use ($request) {
+                $q->whereIn('categories.id', $request->categories);
+            });
+        }
+
+        // Urutkan harga
+        if ($request->sort == 'asc') {
+            $menus->orderBy('price', 'asc');
+        } elseif ($request->sort == 'desc') {
+            $menus->orderBy('price', 'desc');
+        }
+
+        $menus = $menus->get();
+
+        return view('menus.index', compact('menus', 'categories'));
     }
 }
