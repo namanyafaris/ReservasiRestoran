@@ -14,8 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::table('menus', function (Blueprint $table) {
-            $table->text('ingredients')->nullable();
-            $table->integer('calories')->nullable();
             $table->decimal('rating', 2, 1)->nullable();
         });
     }
