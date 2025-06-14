@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\TableStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReservationStoreRequest;
+use App\Models\Menu;
 use App\Models\Reservation;
 use App\Models\Table;
 use Carbon\Carbon;
@@ -52,8 +53,13 @@ class ReservationController extends Controller
                 return back()->with('warning', 'This table is reserved for this date.');
             }
         }
-        Reservation::create($request->validated());
-
+        $reservation = Reservation::create($request->validated());
+    
+        // Simpan menu ke pivot
+        if ($request->has('menu_id')) {
+            $reservation->menus()->sync($request->menu_id);
+        }
+    
         return to_route('admin.reservations.index')->with('success', 'Reservation created successfully.');
     }
 
@@ -76,8 +82,10 @@ class ReservationController extends Controller
      */
     public function edit(Reservation $reservation)
     {
+        
         $tables = Table::where('status', TableStatus::Avalaiable)->get();
-        return view('admin.reservations.edit', compact('reservation', 'tables'));
+        $menus = Menu::all();
+        return view('admin.reservations.edit', compact('reservation', 'tables', 'menus'));
     }
 
     /**
@@ -102,6 +110,9 @@ class ReservationController extends Controller
         }
 
         $reservation->update($request->validated());
+        if ($request->has('menu_id')) {
+            $reservation->menus()->sync($request->menu_id);
+        }
         return to_route('admin.reservations.index')->with('success', 'Reservation updated successfully.');
     }
 

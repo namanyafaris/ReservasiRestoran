@@ -1,62 +1,106 @@
 <x-guest-layout>
-
-    <!-- ------------------------   Reservation Step Two Form Section ------------------------ -->
     <section class="my-5">
         <div class="container">
             <div class="row my-4 mx-1">
-                <div
-                    class="
-                col-md-12
-                mx-auto
-                bg-warning
-                text-white
-                p-md-5 p-4
-                shadow-lg
-                rounded-3
-              ">
+                <div class="col-md-12 mx-auto bg-warning text-white p-md-5 p-4 shadow-lg rounded-3">
                     <small>RESERVASI RESTAWRANT</small>
-                    <h1 class="fw-bold">Reservasi tempat meja di Restawrant</h1>
-                    <p>Pilih meja tempat anda reservasi tempat di Restawrant</p>
+                    <h1 class="fw-bold">Reservasi Tempat Meja di Restawrant</h1>
+                    <p>Pilih meja dan menu untuk reservasi tempat di Restawrant</p>
                     <hr />
-                    <form method="POST" action="{{ route('reservations.store.step.two') }}" class="row g-3">
-                        @csrf
-                        <div class="col-md-12">
-                            <label for="jenis_kelamin_input" class="form-label">Pilih Meja</label>
-                            <select name="table_id" id="jenis_kelamin_input" class="form-select">
-                                <option selected>Pilih Meja ...</option>
-                                @forelse ($tables as $table)
-                                    <option value="{{ $table->id }}" @selected($table->id == $reservation->table_id)>
-                                        {{ $table->name }}
-                                        ({{ $table->guest_number }} Guests)
-                                    </option>
-                                @empty
-                                    <option value="">
-                                        Tidak ada meja yang tersedia :()
-                                    </option>
-                                @endforelse
-                            </select>
-                            @error('table_id')
-                                <p class="register_text_error">{{ $message }}</p>
-                            @enderror
-                        </div>
 
-                        <div class="col-md-12 mx-auto mt-4 text-center">
-                            <p class="text-center col-md-8 mx-auto">
-                                Dengan menekan tombol 'buat reservasi' berarti anda menyatakan setuju dan siap
-                                bertanggung jawab atas reservasi yang anda telah buat
-                            </p>
-                            <a href="{{ route('reservations.step.one') }}"
-                                class="btn btn-outline-light text-white px-5 py-2 fw-bold me-3">
-                                <i class="fas fa-arrow-left"></i> &nbsp; Sebelumnya
-                            </a>
-                            <button type="submit" class="btn btn-outline-light text-white px-5 py-2 fw-bold">
-                                Buat Reservasi &nbsp; <i class="fas fa-arrow-right"></i>
-                            </button>
+                    <!-- Form GET Pilih Kategori -->
+                    <form method="GET" action="{{ route('reservations.step.two') }}" class="mb-4">
+                        <div class="mb-3">
+                            <label for="category_id" class="form-label">Pilih Kategori Menu</label>
+                            <select name="category_id" id="category_id" class="form-select" onchange="this.form.submit()">
+                                <option value="">Pilih Kategori...</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" @if($selectedCategoryId == $category->id) selected @endif>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     </form>
+
+                    <!-- Form POST Reservasi dan Menu (tampil setelah kategori dipilih) -->
+                    @if($selectedCategoryId && count($menus))
+                        <form method="POST" action="{{ route('reservations.store.step.two') }}" class="row g-3">
+                            @csrf
+
+                            <!-- Pilih Meja -->
+                            <div class="col-md-12">
+                                <label for="table_id" class="form-label">Pilih Meja</label>
+                                <select name="table_id" id="table_id" class="form-select">
+                                    <option value="">Pilih Meja ...</option>
+                                    @forelse ($tables as $table)
+                                        <option value="{{ $table->id }}" @selected(old('table_id', $reservation->table_id ?? '') == $table->id)>
+                                            {{ $table->name }} ({{ $table->guest_number }} Tamu)
+                                        </option>
+                                    @empty
+                                        <option value="">Tidak ada meja yang tersedia :(</option>
+                                    @endforelse
+                                </select>
+                                @error('table_id')
+                                    <p class="register_text_error text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <!-- Hidden category id -->
+                            <input type="hidden" name="category_id" value="{{ $selectedCategoryId }}">
+
+                            <!-- Pilih Menu -->
+                            <div class="col-md-12">
+                                <label for="menu_id" class="form-label">Pilih Menu</label>
+                                <select name="menu_id[]" id="menu_id" class="form-select" multiple>
+                                    @foreach($menus as $menu)
+                                        <option value="{{ $menu->id }}" @if(is_array(old('menu_id')) && in_array($menu->id, old('menu_id'))) selected @endif>
+                                            {{ $menu->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <small class="text-light">Klik untuk memilih lebih dari satu menu.</small>
+                                @error('menu_id')
+                                    <p class="register_text_error text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <!-- Tombol Submit -->
+                            <div class="col-md-12 mx-auto mt-4 text-center">
+                                <p class="text-center col-md-8 mx-auto">
+                                    Dengan menekan tombol 'buat reservasi' berarti anda menyatakan setuju dan siap
+                                    bertanggung jawab atas reservasi yang anda telah buat.
+                                </p>
+                                <a href="{{ route('reservations.step.one') }}"
+                                    class="btn btn-outline-light text-white px-5 py-2 fw-bold me-3">
+                                    <i class="fas fa-arrow-left"></i> &nbsp; Sebelumnya
+                                </a>
+                                <button type="submit" class="btn btn-outline-light text-white px-5 py-2 fw-bold">
+                                    Buat Reservasi &nbsp; <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </form>
+                    @endif
+
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- jQuery & Select2 JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#menu_id').select2({
+                placeholder: "Pilih Menu",
+                allowClear: true,
+                width: '100%'
+            });
+        });
+    </script>
 
 </x-guest-layout>

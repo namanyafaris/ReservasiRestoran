@@ -134,7 +134,35 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="name">Rating: <span class="text-danger">*</span></label>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            class="icon icon-tabler icon-tabler-currency-dollar" width="20"
+                                                            height="20" viewBox="0 0 24 24" stroke-width="2"
+                                                            stroke="currentColor" fill="none" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                            <path
+                                                                d="M16.7 8a3 3 0 0 0 -2.7 -2h-4a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6h-4a3 3 0 0 1 -2.7 -2">
+                                                            </path>
+                                                            <path d="M12 3v3m0 12v3"></path>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                                <input class="form-control" id="rating" name="rating"
+                                                    value="{{ old('rating') }}" type="text" required="">
+                                            </div>
+                                        </div>
+                                    </div> 
                                 </div>
+
+                             
+                                  
+                            
 
                                 <div class="col-sm-12">
                                     <div class="btn-showcase">

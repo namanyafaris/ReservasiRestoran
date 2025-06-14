@@ -20,8 +20,10 @@ Route::get('/reservation/step-one', [FrontendReservationController::class, 'step
 Route::post('/reservation/step-one', [FrontendReservationController::class, 'storeStepOne'])->name('reservations.store.step.one');
 Route::get('/reservation/step-two', [FrontendReservationController::class, 'stepTwo'])->name('reservations.step.two');
 Route::post('/reservation/step-two', [FrontendReservationController::class, 'storeStepTwo'])->name('reservations.store.step.two');
+// //ajax enndpoint
+// Route::get('/reservations/get-menus', [ReservationController::class, 'getMenusByCategory'])->name('reservations.getMenusByCategory');
 Route::get('/thankyou', [WelcomeController::class, 'thankyou'])->name('thankyou');
-
+Route::get('/menu/{id}', [FrontendMenuController::class, 'show'])->name('menus.show');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
