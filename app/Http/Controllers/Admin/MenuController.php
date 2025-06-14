@@ -49,8 +49,6 @@ class MenuController extends Controller
             'description' => $request->description,
             'image' => $image,
             'price' => $request->price,
-            'ingredients' => $request->ingredients,
-            'calories' => $request->calories,
             'rating' => $request->rating
         ]);
 

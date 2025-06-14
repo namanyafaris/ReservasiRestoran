@@ -15,9 +15,9 @@
                             <select name="category_id" id="category_id" class="form-select" onchange="this.form.submit()">
                                 <option value="">Pilih Kategori...</option>
                                 @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" @if($selectedCategoryId == $category->id) selected @endif>
-                                        {{ $category->name }}
-                                    </option>
+                                <option value="{{ $category->id }}" @if($selectedCategoryId==$category->id) selected @endif>
+                                    {{ $category->name }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
@@ -25,61 +25,61 @@
 
                     <!-- Form POST Reservasi dan Menu (tampil setelah kategori dipilih) -->
                     @if($selectedCategoryId && count($menus))
-                        <form method="POST" action="{{ route('reservations.store.step.two') }}" class="row g-3">
-                            @csrf
+                    <form method="POST" action="{{ route('reservations.store.step.two') }}" class="row g-3">
+                        @csrf
 
-                            <!-- Pilih Meja -->
-                            <div class="col-md-12">
-                                <label for="table_id" class="form-label">Pilih Meja</label>
-                                <select name="table_id" id="table_id" class="form-select">
-                                    <option value="">Pilih Meja ...</option>
-                                    @forelse ($tables as $table)
-                                        <option value="{{ $table->id }}" @selected(old('table_id', $reservation->table_id ?? '') == $table->id)>
-                                            {{ $table->name }} ({{ $table->guest_number }} Tamu)
-                                        </option>
-                                    @empty
-                                        <option value="">Tidak ada meja yang tersedia :(</option>
-                                    @endforelse
-                                </select>
-                                @error('table_id')
-                                    <p class="register_text_error text-danger">{{ $message }}</p>
-                                @enderror
-                            </div>
+                        <!-- Pilih Meja -->
+                        <div class="col-md-12">
+                            <label for="table_id" class="form-label">Pilih Meja</label>
+                            <select name="table_id" id="table_id" class="form-select">
+                                <option value="">Pilih Meja ...</option>
+                                @forelse ($tables as $table)
+                                <option value="{{ $table->id }}" @selected(old('table_id', $reservation->table_id ?? '') == $table->id)>
+                                    {{ $table->name }} ({{ $table->guest_number }} Tamu)
+                                </option>
+                                @empty
+                                <option value="">Tidak ada meja yang tersedia :(</option>
+                                @endforelse
+                            </select>
+                            @error('table_id')
+                            <p class="register_text_error text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                            <!-- Hidden category id -->
-                            <input type="hidden" name="category_id" value="{{ $selectedCategoryId }}">
+                        <!-- Hidden category id -->
+                        <input type="hidden" name="category_id" value="{{ $selectedCategoryId }}">
 
-                            <!-- Pilih Menu -->
-                            <div class="col-md-12">
-                                <label for="menu_id" class="form-label">Pilih Menu</label>
-                                <select name="menu_id[]" id="menu_id" class="form-select" multiple>
-                                    @foreach($menus as $menu)
-                                        <option value="{{ $menu->id }}" @if(is_array(old('menu_id')) && in_array($menu->id, old('menu_id'))) selected @endif>
-                                            {{ $menu->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <small class="text-light">Klik untuk memilih lebih dari satu menu.</small>
-                                @error('menu_id')
-                                    <p class="register_text_error text-danger">{{ $message }}</p>
-                                @enderror
-                            </div>
+                        <!-- Pilih Menu -->
+                        <div class="col-md-12">
+                            <label for="menu_id" class="form-label">Pilih Menu</label>
+                            <select name="menu_id[]" id="menu_id" class="form-select" multiple>
+                                @foreach($menus as $menu)
+                                <option value="{{ $menu->id }}" @if(is_array(old('menu_id')) && in_array($menu->id, old('menu_id'))) selected @endif>
+                                    {{ $menu->name }}
+                                </option>
+                                @endforeach
+                            </select>
+                            <small class="text-light">Klik untuk memilih lebih dari satu menu.</small>
+                            @error('menu_id')
+                            <p class="register_text_error text-danger">{{$message}}</p>
+                            @enderror
+                        </div>
 
-                            <!-- Tombol Submit -->
-                            <div class="col-md-12 mx-auto mt-4 text-center">
-                                <p class="text-center col-md-8 mx-auto">
-                                    Dengan menekan tombol 'buat reservasi' berarti anda menyatakan setuju dan siap
-                                    bertanggung jawab atas reservasi yang anda telah buat.
-                                </p>
-                                <a href="{{ route('reservations.step.one') }}"
-                                    class="btn btn-outline-light text-white px-5 py-2 fw-bold me-3">
-                                    <i class="fas fa-arrow-left"></i> &nbsp; Sebelumnya
-                                </a>
-                                <button type="submit" class="btn btn-outline-light text-white px-5 py-2 fw-bold">
-                                    Buat Reservasi &nbsp; <i class="fas fa-arrow-right"></i>
-                                </button>
-                            </div>
-                        </form>
+                        <!-- Tombol Submit -->
+                        <div class="col-md-12 mx-auto mt-4 text-center">
+                            <p class="text-center col-md-8 mx-auto">
+                                Dengan menekan tombol 'buat reservasi' berarti anda menyatakan setuju dan siap
+                                bertanggung jawab atas reservasi yang anda telah buat.
+                            </p>
+                            <a href="{{ route('reservations.step.one') }}"
+                                class="btn btn-outline-light text-white px-5 py-2 fw-bold me-3">
+                                <i class="fas fa-arrow-left"></i> &nbsp; Sebelumnya
+                            </a>
+                            <button type="submit" class="btn btn-outline-light text-white px-5 py-2 fw-bold">
+                                Buat Reservasi &nbsp; <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </form>
                     @endif
 
                 </div>
@@ -94,11 +94,74 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
+        const allMenus = @json($allMenus);
         $(document).ready(function() {
             $('#menu_id').select2({
                 placeholder: "Pilih Menu",
                 allowClear: true,
                 width: '100%'
+            });
+
+            // Ambil semua menu yang pernah dipilih dari localStorage
+            function getAllSelectedMenus() {
+                return JSON.parse(localStorage.getItem('selected_menus_all') || '[]');
+            }
+
+            // Simpan semua menu yang dipilih ke localStorage
+            function setAllSelectedMenus(arr) {
+                localStorage.setItem('selected_menus_all', JSON.stringify(arr));
+            }
+
+            // Saat menu dipilih, update localStorage
+            $('#menu_id').on('change', function() {
+                let selectedMenus = getAllSelectedMenus();
+                let currentSelected = $(this).val() || [];
+                // Gabungkan dan hilangkan duplikat
+                let merged = Array.from(new Set([...selectedMenus, ...currentSelected]));
+                setAllSelectedMenus(merged);
+            });
+
+            // Saat kategori berubah, tambahkan option untuk menu yang sudah dipilih
+            $('#category_id').on('change', function() {
+                let allSelected = getAllSelectedMenus();
+                // Tambahkan option jika belum ada di select
+                allSelected.forEach(function(menuId) {
+                    if ($('#menu_id option[value="' + menuId + '"]').length === 0) {
+                        let menuName = allMenus[menuId] || ('Menu #' + menuId);
+                        $('#menu_id').append('<option value="' + menuId + '" selected>' + menuName + '</option>');
+                    }
+                });
+                // Set value select2
+                setTimeout(function() {
+                    $('#menu_id').val(allSelected).trigger('change');
+                }, 300);
+            });
+
+            // Saat halaman load, tambahkan option untuk menu yang sudah dipilih
+            let allSelected = getAllSelectedMenus();
+            allSelected.forEach(function(menuId) {
+                if ($('#menu_id option[value="' + menuId + '"]').length === 0) {
+                    let menuName = allMenus[menuId] || ('Menu #' + menuId);
+                    $('#menu_id').append('<option value="' + menuId + '" selected>' + menuName + '</option>');
+                }
+            });
+            $('#menu_id').val(allSelected).trigger('change');
+
+            // Simpan pilihan meja ke localStorage saat berubah
+            $('#table_id').on('change', function() {
+                localStorage.setItem('selected_table_id', $(this).val());
+            });
+
+            // Saat halaman load, set value meja dari localStorage jika ada
+            if (localStorage.getItem('selected_table_id')) {
+                $('#table_id').val(localStorage.getItem('selected_table_id')).trigger('change');
+            }
+
+            // Saat kategori berubah, tetap set value meja dari localStorage
+            $('#category_id').on('change', function() {
+                if (localStorage.getItem('selected_table_id')) {
+                    $('#table_id').val(localStorage.getItem('selected_table_id')).trigger('change');
+                }
             });
         });
     </script>
