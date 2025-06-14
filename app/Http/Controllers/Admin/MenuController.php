@@ -48,7 +48,10 @@ class MenuController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'image' => $image,
-            'price' => $request->price
+            'price' => $request->price,
+            'ingredients' => $request->ingredients,
+            'calories' => $request->calories,
+            'rating' => $request->rating
         ]);
 
         if ($request->has('categories')) {
@@ -83,7 +86,8 @@ class MenuController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'price' => 'required'
+            'price' => 'required',
+            'rating' => 'required'
         ]);
         $image = $menu->image;
         if ($request->hasFile('image')) {
@@ -95,7 +99,8 @@ class MenuController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'image' => $image,
-            'price' => $request->price
+            'price' => $request->price,
+            'rating' => $request->rating
         ]);
 
         if ($request->has('categories')) {

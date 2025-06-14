@@ -94,14 +94,14 @@
                                     class="card-img-top card-img-top-menus" />
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold"> {{ $menu->name }}</h5>
-                                    <div class="category-card-description-wrapper">
-                                        <p class="card-text category-card-description" style="font-size: 13px;">
-                                            {{ $menu->description }}
-                                        </p>
-                                    </div>
+
                                     <hr>
                                     <h5 class="fw-semibold">Rp.{{ $menu->price }}.000,00</h5>
+                                    <a href="{{ route('menus.show', $menu->id) }}" class="btn btn-warning w-100 mt-2 fw-semibold">
+                                        Lihat Detail
+                                    </a>
                                 </div>
+
                             </div>
                         </div>
                         @endforeach

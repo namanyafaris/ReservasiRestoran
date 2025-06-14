@@ -43,6 +43,7 @@
                                         <th>Tanggal</th>
                                         <th>Meja</th>
                                         <th>Jumlah Tamu</th>
+                                        <th>Menu</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
@@ -72,6 +73,17 @@
                                             <td>{{ $item->res_date }}</td>
                                             <td>{{ $item->table->name }}</td>
                                             <td>{{ $item->guest_number }}</td>
+                                            <td>
+    @if($item->menus && $item->menus->count())
+        <ul class="pl-3 mb-0">
+            @foreach($item->menus as $menu)
+                <li style="list-style: disc;">{{ $menu->name }}</li>
+            @endforeach
+        </ul>
+    @else
+        <span class="text-muted">-</span>
+    @endif
+</td>
                                             <td>
 
                                                 <a href="{{ route('admin.reservations.edit', $item->id) }}"
@@ -118,6 +130,7 @@
                                         <th>Tanggal</th>
                                         <th>Meja</th>
                                         <th>Jumlah Tamu</th>
+                                        <th>Menu</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </tfoot>

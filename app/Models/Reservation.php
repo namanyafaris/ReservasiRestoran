@@ -31,4 +31,8 @@ class Reservation extends Model
     {
         return $this->belongsTo(Table::class);
     }
+    public function menus()
+{
+    return $this->belongsToMany(Menu::class, 'menu_reservation');
+}
 }

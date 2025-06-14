@@ -41,6 +41,7 @@
                                     <tr>
                                         <th>Nama Menu</th>
                                         <th>Harga</th>
+                                        <th>Rating</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
@@ -63,8 +64,8 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>Rp.{{ substr(strip_tags(htmlspecialchars_decode($item->price)), 0, 60) }}.000,00
-                                            </td>
+                                            <td>Rp.{{ substr(strip_tags(htmlspecialchars_decode($item->price)), 0, 60) }}.000,00</td>
+                                            <td>{{ $item->rating }}</td> 
                                             <td>
 
                                                 <a href="{{ route('admin.menus.edit', $item->id) }}"

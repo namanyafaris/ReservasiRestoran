@@ -33,4 +33,12 @@ class MenuController extends Controller
 
         return view('menus.index', compact('menus', 'categories'));
     }
+
+    public function show($id)
+{
+    $menu = Menu::findOrFail($id);
+
+    return view('menus.show', compact('menu'));
+}
+
 }
