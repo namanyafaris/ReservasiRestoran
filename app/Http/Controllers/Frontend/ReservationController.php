@@ -49,7 +49,8 @@ class ReservationController extends Controller
         $selectedCategoryId = $request->input('category_id', session('selected_category_id'));
         $menus = [];
         if ($selectedCategoryId) {
-            $menus = Category::find($selectedCategoryId)?->menus ?? [];
+            $category = Category::find($selectedCategoryId);
+            $menus = $category ? $category->menus : [];
             session(['selected_category_id' => $selectedCategoryId]);
         }
 
