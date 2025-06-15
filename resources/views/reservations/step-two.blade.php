@@ -112,13 +112,10 @@
                 localStorage.setItem('selected_menus_all', JSON.stringify(arr));
             }
 
-            // Saat menu dipilih, update localStorage
+            // Saat menu dipilih/dihapus, update localStorage
             $('#menu_id').on('change', function() {
-                let selectedMenus = getAllSelectedMenus();
                 let currentSelected = $(this).val() || [];
-                // Gabungkan dan hilangkan duplikat
-                let merged = Array.from(new Set([...selectedMenus, ...currentSelected]));
-                setAllSelectedMenus(merged);
+                setAllSelectedMenus(currentSelected);
             });
 
             // Saat kategori berubah, tambahkan option untuk menu yang sudah dipilih
