@@ -45,125 +45,40 @@
                   ">
                             <span class="fs-5 fw-semibold">Filter</span>
                         </a>
-                        <ul class="list-unstyled ps-0">
-                            <li class="mb-1">
-                                <button
-                                    class="
-                        btn btn-toggle
-                        align-items-center
-                        text-white
-                        rounded
-                        collapsed
-                      "
-                                    data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
-                                    &nbsp; Kategori
-                                </button>
-                                <div class="collapse show" id="home-collapse">
-                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                        <li>
-                                            <a href="#" class="link-light rounded">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="1" />
-                                                    <label class="form-check-label" for="1">
-                                                        Makanan
-                                                    </label>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="link-light rounded">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="2" />
-                                                    <label class="form-check-label" for="2">
-                                                        Minuman
-                                                    </label>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="link-light rounded">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="3" />
-                                                    <label class="form-check-label" for="3">
-                                                        Dessert
-                                                    </label>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="link-light rounded">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="4" />
-                                                    <label class="form-check-label" for="4">
-                                                        Seblak
-                                                    </label>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="link-light rounded">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="5" />
-                                                    <label class="form-check-label" for="5">
-                                                        Snack
-                                                    </label>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="link-light rounded">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="6" />
-                                                    <label class="form-check-label" for="6">
-                                                        Cocktail
-                                                    </label>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
+                        <form method="GET" action="{{ route('menus.index') }}">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                @foreach ($categories as $category)
+                                <li>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="categories[]"
+                                            value="{{ $category->id }}" id="cat{{ $category->id }}"
+                                            {{ in_array($category->id, request()->get('categories', [])) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="cat{{ $category->id }}">
+                                            {{ $category->name }}
+                                        </label>
+                                    </div>
+                                </li>
+                                @endforeach
+                            </ul>
+                            <div class="mt-3">
+                                <label class="fw-semibold">Urutan Harga</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="sort" id="sort_asc" value="asc"
+                                        {{ request('sort') == 'asc' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="sort_asc">
+                                        Terendah — Tertinggi
+                                    </label>
                                 </div>
-                            </li>
-                            <li class="border-top my-3"></li>
-                            <li class="mb-1">
-                                <button
-                                    class="
-                        btn btn-toggle
-                        align-items-center
-                        rounded
-                        text-white
-                        collapsed
-                      "
-                                    data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="true">
-                                    &nbsp; Urutan Harga
-                                </button>
-                                <div class="collapse show" id="dashboard-collapse">
-                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                        <li>
-                                            <a href="#" class="link-light rounded">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="flexCheckChecked" />
-                                                    <label class="form-check-label" for="flexCheckChecked">
-                                                        Terendah — Tertinggi
-                                                    </label>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="link-light rounded">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="flexCheckChecked" />
-                                                    <label class="form-check-label" for="flexCheckChecked">
-                                                        Tertinggi — Terendah
-                                                    </label>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="sort" id="sort_desc" value="desc"
+                                        {{ request('sort') == 'desc' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="sort_desc">
+                                        Tertinggi — Terendah
+                                    </label>
                                 </div>
-                            </li>
-                        </ul>
+                            </div>
+                            <button type="submit" class="btn btn-light btn-sm mt-3">Filter</button>
+                        </form>
                     </div>
                 </div>
                 <div class="col-md-8">
@@ -173,22 +88,22 @@
                     </div>
                     <div class="row g-3">
                         @foreach ($menus as $menu)
-                            <div class="col-md-4">
-                                <div class="card card-borderless-shadow card-min-height">
-                                    <img src="{{ Storage::url($menu->image) }}"
-                                        class="card-img-top card-img-top-menus" />
-                                    <div class="card-body">
-                                        <h5 class="card-title fw-bold"> {{ $menu->name }}</h5>
-                                       
-                                        <hr>
-                                        <h5 class="fw-semibold">Rp.{{ $menu->price }}.000,00</h5>
-                                        <a href="{{ route('menus.show', $menu->id) }}" class="btn btn-warning w-100 mt-2 fw-semibold">
-        Lihat Detail
-    </a>
-                                    </div>
+                        <div class="col-md-4">
+                            <div class="card card-borderless-shadow card-min-height">
+                                <img src="{{ Storage::url($menu->image) }}"
+                                    class="card-img-top card-img-top-menus" />
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold"> {{ $menu->name }}</h5>
 
+                                    <hr>
+                                    <h5 class="fw-semibold">Rp.{{ $menu->price }}.000,00</h5>
+                                    <a href="{{ route('menus.show', $menu->id) }}" class="btn btn-warning w-100 mt-2 fw-semibold">
+                                        Lihat Detail
+                                    </a>
                                 </div>
+
                             </div>
+                        </div>
                         @endforeach
                     </div>
                 </div>

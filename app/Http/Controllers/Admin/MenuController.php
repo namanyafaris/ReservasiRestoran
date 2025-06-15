@@ -19,7 +19,8 @@ class MenuController extends Controller
     public function index()
     {
         $menus = Menu::all();
-        return view('admin.menus.index', compact('menus'));
+        $categories = Category::all();
+        return view('admin.menus.index', compact('menus', 'categories'));
     }
 
     /**
@@ -48,8 +49,6 @@ class MenuController extends Controller
             'description' => $request->description,
             'image' => $image,
             'price' => $request->price,
-            'ingredients' => $request->ingredients,
-            'calories' => $request->calories,
             'rating' => $request->rating
         ]);
 

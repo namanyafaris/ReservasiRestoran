@@ -44,12 +44,14 @@ class ReservationController extends Controller
     {
         $reservation = $request->session()->get('reservation');
         $categories = Category::all();
+        $allMenus = \App\Models\Menu::pluck('name', 'id');
 
         // Ambil kategori yang dipilih dari input GET atau dari session (biar tetap setelah reload)
         $selectedCategoryId = $request->input('category_id', session('selected_category_id'));
         $menus = [];
         if ($selectedCategoryId) {
-            $menus = Category::find($selectedCategoryId)?->menus ?? [];
+            $category = Category::find($selectedCategoryId);
+            $menus = $category ? $category->menus : [];
             session(['selected_category_id' => $selectedCategoryId]);
         }
 
@@ -61,7 +63,7 @@ class ReservationController extends Controller
             ->where('guest_number', '>=', $reservation->guest_number)
             ->whereNotIn('id', $res_table_ids)->get();
 
-        return view('reservations.step-two', compact('reservation', 'tables', 'categories', 'menus', 'selectedCategoryId'));
+        return view('reservations.step-two', compact('reservation', 'tables', 'categories', 'menus', 'selectedCategoryId', 'allMenus'));
     }
 
     public function storeStepTwo(Request $request)
