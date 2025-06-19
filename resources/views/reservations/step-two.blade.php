@@ -38,7 +38,7 @@
                                     {{ $table->name }} ({{ $table->guest_number }} Tamu)
                                 </option>
                                 @empty
-                                <option value="">Tidak ada meja yang tersedia :(</option>
+                                <option value="">Tidak ada meja yang tersedia :</option>
                                 @endforelse
                             </select>
                             @error('table_id')
