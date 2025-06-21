@@ -11,6 +11,7 @@ use App\Rules\DateBetween;
 use App\Rules\TimeBetween;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ReservationController extends Controller
 {
@@ -80,6 +81,20 @@ class ReservationController extends Controller
 
         $request->session()->forget('reservation');
         $request->session()->forget('selected_category_id');
-        return to_route('thankyou');
+        return to_route('thankyou', ['reservation' => $reservation->id]);
+    }
+
+    public function printReceipt(Reservation $reservation)
+    {
+        // Ambil data relasi jika perlu, misal menu dan meja
+        $reservation->load('menus', 'table');
+
+        $pdf = Pdf::loadView('reservations.receipt', compact('reservation'));
+        return $pdf->download('struk-reservasi-' . $reservation->id . '.pdf');
+    }
+
+    public function thankyou(Reservation $reservation)
+    {
+        return view('thankyou', compact('reservation'));
     }
 }

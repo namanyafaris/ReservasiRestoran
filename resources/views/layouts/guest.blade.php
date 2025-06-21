@@ -102,18 +102,14 @@
             </ul>
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="{{ route('login') }}" class="nav-link link-dark text-grey px-2 no-effect-hover">Login Admin</a>
+                    <a href="{{ route('login') }}" class="nav-link link-dark text-grey px-2 no-effect-hover">LOGIN</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link link-dark text-grey px-2 no-effect-hover">|</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://wa.me/+628123456789" class="nav-link link-dark text-grey px-2" target="_blank">
-                        +628123456789</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://wa.me/+628987654321" target="_blank"
-                        class="nav-link link-dark text-grey px-2">+628987654321</a>
+                    <a href="https://wa.me/+6285155143677" class="nav-link link-dark text-grey px-2" target="_blank">
+                        Call Center</a>
                 </li>
             </ul>
         </div>
