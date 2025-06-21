@@ -68,21 +68,32 @@ class ReservationController extends Controller
     }
 
     public function storeStepTwo(Request $request)
-    {
-        $validated = $request->validate([
-            'table_id' => ['required'],
-            'menu_id' => ['required', 'array'],
-            'menu_id.*' => ['exists:menus,id'],
-        ]);
-        $reservation = $request->session()->get('reservation');
-        $reservation->fill($validated);
-        $reservation->save();
-        $reservation->menus()->sync($request->menu_id);
+{
+    $validated = $request->validate([
+        'table_id' => ['required'],
+        'menu_id' => ['required', 'array'],
+        'menu_id.*' => ['exists:menus,id'],
+        'quantity' => ['required', 'array'],
+        'quantity.*' => ['required', 'integer', 'min:1'],
+    ]);
 
-        $request->session()->forget('reservation');
-        $request->session()->forget('selected_category_id');
-        return to_route('thankyou', ['reservation' => $reservation->id]);
+    $reservation = $request->session()->get('reservation');
+    $reservation->fill($validated);
+    $reservation->save();
+
+    // Siapkan data sinkronisasi: [menu_id => ['quantity' => jumlah]]
+    $syncData = [];
+    foreach ($request->menu_id as $menuId) {
+        $syncData[$menuId] = [
+            'quantity' => $request->quantity[$menuId] ?? 1,
+        ];
     }
+    $reservation->menus()->sync($syncData);
+
+    $request->session()->forget('reservation');
+    $request->session()->forget('selected_category_id');
+    return to_route('thankyou', ['reservation' => $reservation->id]);
+}
 
     public function printReceipt(Reservation $reservation)
     {

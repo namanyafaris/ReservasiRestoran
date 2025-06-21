@@ -33,6 +33,6 @@ class Reservation extends Model
     }
     public function menus()
 {
-    return $this->belongsToMany(Menu::class, 'menu_reservation');
+    return $this->belongsToMany(Menu::class, 'menu_reservation')->withPivot('quantity');
 }
 }
