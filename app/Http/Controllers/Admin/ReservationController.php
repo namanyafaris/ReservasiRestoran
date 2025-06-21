@@ -21,7 +21,7 @@ class ReservationController extends Controller
     public function index()
     {
         $reservations = Reservation::all();
-dd ($reservations);
+
         return view('admin.reservations.index', compact('reservations'));
     }
 
@@ -33,7 +33,8 @@ dd ($reservations);
     public function create()
     {
         $tables = Table::where('status', TableStatus::Avalaiable)->get();
-        return view('admin.reservations.create', compact('tables'));
+        $menus = Menu::all(); // Tambahkan baris ini
+        return view('admin.reservations.create', compact('tables', 'menus')); // Tambahkan 'menus' ke compact
     }
 
     /**
@@ -56,11 +57,15 @@ dd ($reservations);
         }
         $reservation = Reservation::create($request->validated());
     
-        // Simpan menu ke pivot
         if ($request->has('menu_id')) {
-            $reservation->menus()->sync($request->menu_id);
+            $syncData = [];
+            foreach ($request->menu_id as $menuId) {
+                $syncData[$menuId] = [
+                    'quantity' => $request->quantity[$menuId] ?? 1,
+                ];
+            }
+            $reservation->menus()->sync($syncData);
         }
-    
         return to_route('admin.reservations.index')->with('success', 'Reservation created successfully.');
     }
 
@@ -112,7 +117,13 @@ dd ($reservations);
 
         $reservation->update($request->validated());
         if ($request->has('menu_id')) {
-            $reservation->menus()->sync($request->menu_id);
+            $syncData = [];
+            foreach ($request->menu_id as $menuId) {
+                $syncData[$menuId] = [
+                    'quantity' => $request->quantity[$menuId] ?? 1,
+                ];
+            }
+            $reservation->menus()->sync($syncData);
         }
         return to_route('admin.reservations.index')->with('success', 'Reservation updated successfully.');
     }
