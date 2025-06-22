@@ -21,7 +21,7 @@ class ReservationController extends Controller
     public function index()
     {
         $reservations = Reservation::all();
-dd ($reservations);
+        // dd ($reservations);
         return view('admin.reservations.index', compact('reservations'));
     }
 
@@ -55,12 +55,12 @@ dd ($reservations);
             }
         }
         $reservation = Reservation::create($request->validated());
-    
+
         // Simpan menu ke pivot
         if ($request->has('menu_id')) {
             $reservation->menus()->sync($request->menu_id);
         }
-    
+
         return to_route('admin.reservations.index')->with('success', 'Reservation created successfully.');
     }
 
@@ -83,7 +83,7 @@ dd ($reservations);
      */
     public function edit(Reservation $reservation)
     {
-        
+
         $tables = Table::where('status', TableStatus::Avalaiable)->get();
         $menus = Menu::all();
         return view('admin.reservations.edit', compact('reservation', 'tables', 'menus'));
