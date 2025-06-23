@@ -90,7 +90,7 @@
                         @foreach ($menus as $menu)
                         <div class="col-md-4">
                             <div class="card card-borderless-shadow card-min-height">
-                                <img src="{{ Storage::url($menu->image) }}"
+                                <img src="{{ ($menu->image) }}"
                                     class="card-img-top card-img-top-menus" />
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold"> {{ $menu->name }}</h5>
