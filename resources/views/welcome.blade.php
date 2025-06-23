@@ -88,7 +88,7 @@
                                             </p>
                                         </div>
                                         <hr>
-                                        <h5 class="fw-semibold">Rp.{{ $menu->price }}.000,00</h5>
+                                        <h5 class="fw-semibold">Rp {{ number_format($menu->price, 0, ',', '.') }}</h5>
                                     </div>
                                 </div>
                             </div>
