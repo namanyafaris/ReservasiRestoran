@@ -144,7 +144,7 @@
                         rame, jadi jangan lupa reservasi ya!
                     </p>
                     <small class="d-block mb-3">
-                        &copy; 2022 Syauqizaidan — Made with laravel 9.4.1 and bootstrap 5.2.0
+                        &copy; 2025 Kelompok 3 - TUGAS AKHIR WEB PROGRAMMING II
                     </small>
                 </div>
 

@@ -48,22 +48,20 @@
 
                         <!-- Hidden category id -->
                         <input type="hidden" name="category_id" value="{{ $selectedCategoryId }}">
-
-                        <!-- Pilih Menu -->
                         <div class="col-md-12">
     <label class="form-label">Pilih Menu & Jumlah</label>
-    @foreach($menus as $menu)
-        <div class="input-group mb-2">
+    <div id="menu-list">
+        @foreach($menus as $menu)
+        <div class="input-group mb-2 menu-item" data-menu-id="{{ $menu->id }}">
             <div class="input-group-text">
-                <input type="checkbox" name="menu_id[]" value="{{ $menu->id }}"
-                    {{ is_array(old('menu_id')) && in_array($menu->id, old('menu_id')) ? 'checked' : '' }}>
+                <input type="checkbox" class="menu-checkbox" data-menu-id="{{ $menu->id }}" name="menu_id[]" value="{{ $menu->id }}">
             </div>
             <input type="text" class="form-control" value="{{ $menu->name }}" readonly>
-            <input type="number" min="1" class="form-control" name="quantity[{{ $menu->id }}]"
-                placeholder="Jumlah"
-                value="{{ old('quantity.' . $menu->id, 1) }}">
+            <input type="number" min="1" class="form-control menu-qty" data-menu-id="{{ $menu->id }}" name="quantity[{{ $menu->id }}]" placeholder="Jumlah" value="1">
         </div>
-    @endforeach
+        @endforeach
+        <!-- Nanti menu lintas kategori akan di-append di sini lewat JS -->
+    </div>
     @error('menu_id')
     <p class="register_text_error text-danger">{{$message}}</p>
     @enderror
@@ -71,7 +69,7 @@
     <p class="register_text_error text-danger">{{$message}}</p>
     @enderror
 </div>
-<small class="text-light">Centang dan isi jumlah menu yang ingin dipesan.</small>
+<small class="text-light">Centang dan isi jumlah menu yang ingin dipesan (menu dari kategori lain tetap tampil di bawah).</small>
 
                         <!-- Tombol Submit -->
                         <div class="col-md-12 mx-auto mt-4 text-center">
@@ -102,73 +100,101 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-        const allMenus = @json($allMenus);
-        $(document).ready(function() {
-            $('#menu_id').select2({
-                placeholder: "Pilih Menu",
-                allowClear: true,
-                width: '100%'
-            });
+$(document).ready(function() {
+    const MENU_KEY = 'selected_menus_quantities';
+    const allMenus = @json($allMenus);
 
-            // Ambil semua menu yang pernah dipilih dari localStorage
-            function getAllSelectedMenus() {
-                return JSON.parse(localStorage.getItem('selected_menus_all') || '[]');
+    // Ambil data menu dari localStorage
+    function getMenusFromLS() {
+        return JSON.parse(localStorage.getItem(MENU_KEY) || '{}');
+    }
+    // Simpan data menu ke localStorage
+    function setMenusToLS(data) {
+        localStorage.setItem(MENU_KEY, JSON.stringify(data));
+    }
+
+    // Cek menu yg sudah dipilih & quantity, update localStorage setiap ada perubahan
+    function updateLS() {
+        let data = getMenusFromLS();
+        $('.menu-checkbox').each(function() {
+            let id = $(this).data('menu-id');
+            if ($(this).is(':checked')) {
+                let qty = $('.menu-qty[data-menu-id="' + id + '"]').val() || 1;
+                data[id] = parseInt(qty);
+            } else {
+                delete data[id];
             }
-
-            // Simpan semua menu yang dipilih ke localStorage
-            function setAllSelectedMenus(arr) {
-                localStorage.setItem('selected_menus_all', JSON.stringify(arr));
-            }
-
-            // Saat menu dipilih/dihapus, update localStorage
-            $('#menu_id').on('change', function() {
-                let currentSelected = $(this).val() || [];
-                setAllSelectedMenus(currentSelected);
-            });
-
-            // Saat kategori berubah, tambahkan option untuk menu yang sudah dipilih
-            $('#category_id').on('change', function() {
-                let allSelected = getAllSelectedMenus();
-                // Tambahkan option jika belum ada di select
-                allSelected.forEach(function(menuId) {
-                    if ($('#menu_id option[value="' + menuId + '"]').length === 0) {
-                        let menuName = allMenus[menuId] || ('Menu #' + menuId);
-                        $('#menu_id').append('<option value="' + menuId + '" selected>' + menuName + '</option>');
-                    }
-                });
-                // Set value select2
-                setTimeout(function() {
-                    $('#menu_id').val(allSelected).trigger('change');
-                }, 300);
-            });
-
-            // Saat halaman load, tambahkan option untuk menu yang sudah dipilih
-            let allSelected = getAllSelectedMenus();
-            allSelected.forEach(function(menuId) {
-                if ($('#menu_id option[value="' + menuId + '"]').length === 0) {
-                    let menuName = allMenus[menuId] || ('Menu #' + menuId);
-                    $('#menu_id').append('<option value="' + menuId + '" selected>' + menuName + '</option>');
-                }
-            });
-            $('#menu_id').val(allSelected).trigger('change');
-
-            // Simpan pilihan meja ke localStorage saat berubah
-            $('#table_id').on('change', function() {
-                localStorage.setItem('selected_table_id', $(this).val());
-            });
-
-            // Saat halaman load, set value meja dari localStorage jika ada
-            if (localStorage.getItem('selected_table_id')) {
-                $('#table_id').val(localStorage.getItem('selected_table_id')).trigger('change');
-            }
-
-            // Saat kategori berubah, tetap set value meja dari localStorage
-            $('#category_id').on('change', function() {
-                if (localStorage.getItem('selected_table_id')) {
-                    $('#table_id').val(localStorage.getItem('selected_table_id')).trigger('change');
-                }
-            });
         });
-    </script>
+        setMenusToLS(data);
+    }
+
+    // Render ulang menu lintas kategori yang sudah dipilih (tapi tidak ada di kategori saat ini)
+    function renderExtraMenus() {
+        let data = getMenusFromLS();
+        let menuList = $('#menu-list');
+        // Hapus dulu menu-item yang bukan dari kategori aktif
+        menuList.find('.extra-menu').remove();
+        Object.keys(data).forEach(function(menuId) {
+            if (!$('.menu-item[data-menu-id="' + menuId + '"]').length) {
+                // Menu tsb tidak ada di kategori aktif, render di bawah
+                let menuName = allMenus[menuId] || ('Menu #' + menuId);
+                let html = `<div class="input-group mb-2 menu-item extra-menu" data-menu-id="${menuId}">
+                    <div class="input-group-text">
+                        <input type="checkbox" class="menu-checkbox" data-menu-id="${menuId}" name="menu_id[]" value="${menuId}" checked>
+                    </div>
+                    <input type="text" class="form-control" value="${menuName}" readonly>
+                    <input type="number" min="1" class="form-control menu-qty" data-menu-id="${menuId}" name="quantity[${menuId}]" placeholder="Jumlah" value="${data[menuId]}">
+                </div>`;
+                menuList.append(html);
+            }
+        });
+    }
+
+    // Restore pilihan menu dari localStorage ke form
+    function restoreFromLS() {
+        let data = getMenusFromLS();
+        $('.menu-checkbox').each(function() {
+            let id = $(this).data('menu-id');
+            if (data[id]) {
+                $(this).prop('checked', true);
+                $('.menu-qty[data-menu-id="' + id + '"]').val(data[id]);
+            } else {
+                $(this).prop('checked', false);
+                $('.menu-qty[data-menu-id="' + id + '"]').val(1);
+            }
+        });
+        // Render extra menu
+        renderExtraMenus();
+    }
+
+    // Event: checkbox/qty berubah
+    $(document).on('change', '.menu-checkbox, .menu-qty', function() {
+        updateLS();
+    });
+
+    // Saat halaman load, restore data
+    restoreFromLS();
+
+    // Saat kategori berubah (ganti page), tunggu render, lalu restore menu
+    $('#category_id').on('change', function() {
+        setTimeout(function() {
+            restoreFromLS();
+        }, 500);
+    });
+
+    // Meja tetap seperti kode Anda
+    $('#table_id').on('change', function() {
+        localStorage.setItem('selected_table_id', $(this).val());
+    });
+    if (localStorage.getItem('selected_table_id')) {
+        $('#table_id').val(localStorage.getItem('selected_table_id')).trigger('change');
+    }
+    $('#category_id').on('change', function() {
+        if (localStorage.getItem('selected_table_id')) {
+            $('#table_id').val(localStorage.getItem('selected_table_id')).trigger('change');
+        }
+    });
+});
+</script>
 
 </x-guest-layout>

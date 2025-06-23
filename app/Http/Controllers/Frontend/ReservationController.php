@@ -60,7 +60,7 @@ class ReservationController extends Controller
         $res_table_ids = Reservation::orderBy('res_date')->get()->filter(function ($value) use ($reservation) {
             return $value->res_date->format('Y-m-d') == $reservation->res_date->format('Y-m-d');
         })->pluck('table_id');
-        $tables = Table::where('status', TableStatus::Avalaiable)
+        $tables = Table::where('status', TableStatus::Available)
             ->where('guest_number', '>=', $reservation->guest_number)
             ->whereNotIn('id', $res_table_ids)->get();
 
@@ -68,32 +68,32 @@ class ReservationController extends Controller
     }
 
     public function storeStepTwo(Request $request)
-{
-    $validated = $request->validate([
-        'table_id' => ['required'],
-        'menu_id' => ['required', 'array'],
-        'menu_id.*' => ['exists:menus,id'],
-        'quantity' => ['required', 'array'],
-        'quantity.*' => ['required', 'integer', 'min:1'],
-    ]);
+    {
+        $validated = $request->validate([
+            'table_id' => ['required'],
+            'menu_id' => ['required', 'array'],
+            'menu_id.*' => ['exists:menus,id'],
+            'quantity' => ['required', 'array'],
+            'quantity.*' => ['required', 'integer', 'min:1'],
+        ]);
 
-    $reservation = $request->session()->get('reservation');
-    $reservation->fill($validated);
-    $reservation->save();
+        $reservation = $request->session()->get('reservation');
+        $reservation->fill($validated);
+        $reservation->save();
 
-    // Siapkan data sinkronisasi: [menu_id => ['quantity' => jumlah]]
-    $syncData = [];
-    foreach ($request->menu_id as $menuId) {
-        $syncData[$menuId] = [
-            'quantity' => $request->quantity[$menuId] ?? 1,
-        ];
+        // Siapkan data sinkronisasi: [menu_id => ['quantity' => jumlah]]
+        $syncData = [];
+        foreach ($request->menu_id as $menuId) {
+            $syncData[$menuId] = [
+                'quantity' => $request->quantity[$menuId] ?? 1,
+            ];
+        }
+        $reservation->menus()->sync($syncData);
+
+        $request->session()->forget('reservation');
+        $request->session()->forget('selected_category_id');
+        return to_route('thankyou', ['reservation' => $reservation->id]);
     }
-    $reservation->menus()->sync($syncData);
-
-    $request->session()->forget('reservation');
-    $request->session()->forget('selected_category_id');
-    return to_route('thankyou', ['reservation' => $reservation->id]);
-}
 
     public function printReceipt(Reservation $reservation)
     {

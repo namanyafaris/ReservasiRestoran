@@ -76,24 +76,24 @@
                     <div class="swiper menu-swiper">
                         <div class="swiper-wrapper">
                             @forelse ($menus as $menu)
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <img src="{{ Storage::url($menu->image) }}"
-                                            class="card-img-top card-img-top-landing-page" />
-                                        <div class="card-body">
-                                            <h5 class="card-title fw-bold"> {{ $menu->name }}</h5>
-                                            <div class="category-card-description-wrapper">
-                                                <p class="card-text category-card-description" style="font-size: 13px;">
-                                                    {{ $menu->description }}
-                                                </p>
-                                            </div>
-                                            <hr>
-                                            <h5 class="fw-semibold">Rp.{{ $menu->price }}.000,00</h5>
+                            <div class="swiper-slide">
+                                <div class="card">
+                                    <img src="{{ ($menu->image) }}"
+                                        class="card-img-top card-img-top-landing-page" />
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold"> {{ $menu->name }}</h5>
+                                        <div class="category-card-description-wrapper">
+                                            <p class="card-text category-card-description" style="font-size: 13px;">
+                                                {{ $menu->description }}
+                                            </p>
                                         </div>
+                                        <hr>
+                                        <h5 class="fw-semibold">Rp.{{ $menu->price }}.000,00</h5>
                                     </div>
                                 </div>
+                            </div>
                             @empty
-                                <p>gak ada menu euy</p>
+                            <p>gak ada menu euy</p>
                             @endforelse
                         </div>
                     </div>
@@ -190,25 +190,25 @@
             </div>
             <div class="row g-3">
                 @forelse ($categories as $cat)
-                    <div class="col-md-4 col-lg-3">
-                        <div class="card card-in-home bg-warning text-white text-center">
-                            <img class="card-img-top card-img-top-category-landing-page"
-                                src="{{ Storage::url($cat->image) }}" alt="" srcset="">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold mt-1">{{ $cat->name }}</h5>
-                                <div class="category-card-description-wrapper">
-                                    <p class="card-text category-card-description" style="font-size: 14px;">
-                                        {{ $cat->description }}
-                                    </p>
-                                </div>
-                                <a href="{{ route('categories.show', $cat->id) }}"
-                                    class="btn btn-outline-light fs-12">Lihat Semua &nbsp;
-                                    <small class="arrow-category-button">→</small></a>
+                <div class="col-md-4 col-lg-3">
+                    <div class="card card-in-home bg-warning text-white text-center">
+                        <img class="card-img-top card-img-top-category-landing-page"
+                            src="{{ ($cat->image) }}" alt="" srcset="">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold mt-1">{{ $cat->name }}</h5>
+                            <div class="category-card-description-wrapper">
+                                <p class="card-text category-card-description" style="font-size: 14px;">
+                                    {{ $cat->description }}
+                                </p>
                             </div>
+                            <a href="{{ route('categories.show', $cat->id) }}"
+                                class="btn btn-outline-light fs-12">Lihat Semua &nbsp;
+                                <small class="arrow-category-button">→</small></a>
                         </div>
                     </div>
+                </div>
                 @empty
-                    <p>gak ada kategori euy</p>
+                <p>gak ada kategori euy</p>
                 @endforelse
             </div>
         </div>

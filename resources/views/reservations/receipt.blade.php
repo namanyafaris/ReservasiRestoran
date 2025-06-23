@@ -40,7 +40,7 @@
 		@foreach($reservation->menus as $menu)
 		<tr>
 			<td>{{ $menu->name }}</td>
-			<td>1</td>
+			<td>{{ $menu->pivot->quantity}}</td>
 		</tr>
 		@endforeach
 	</table>
