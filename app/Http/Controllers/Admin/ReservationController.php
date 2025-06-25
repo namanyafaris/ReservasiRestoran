@@ -10,6 +10,7 @@ use App\Models\Reservation;
 use App\Models\Table;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf; // Pastikan Anda telah menginstal barryvdh/laravel-dompdf
 
 class ReservationController extends Controller
 {
@@ -22,6 +23,13 @@ class ReservationController extends Controller
     {
         $reservations = Reservation::all();
         return view('admin.reservations.index', compact('reservations'));
+    }
+    public function printAll()
+    {
+        $reservations = Reservation::with(['table', 'menus'])->get();
+        // dd($reservations);
+        $pdf = Pdf::loadView('admin.reservations.print-all', compact('reservations'));
+        return $pdf->download('semua-reservasi.pdf');
     }
 
     /**
