@@ -75,9 +75,9 @@
                                             <td>{{ $item->guest_number }}</td>
                                             <td>
     @if($item->menus && $item->menus->count())
-        <ul class="pl-3 mb-0">
+        <ul class="mb-0 pl-3">
             @foreach($item->menus as $menu)
-                <li style="list-style: disc;">{{ $menu->name }}</li>
+                <li>{{ $menu->name }} ({{ $menu->pivot->quantity }})</li>
             @endforeach
         </ul>
     @else

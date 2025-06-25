@@ -16,7 +16,7 @@
                             </button>
                         </div>
                         <div class="col-md-4 my-auto p-0">
-                            <img src="{{ Storage::url($category->image) }}"
+                            <img src="{{($category->image) }}"
                                 class="img-fluid img-jumbotron d-none d-md-block" />
                         </div>
                     </div>
@@ -32,12 +32,12 @@
                 @foreach ($category->menus as $menu)
                     <div class="col-md-3">
                         <div class="card card-borderless-shadow card-min-height">
-                            <img src="{{ Storage::url($menu->image) }}"
+                            <img src="{{($menu->image) }}"
                                 class="card-img-top card-img-top-landing-page" />
                             <div class="card-body">
                                 <h5 class="card-title fw-bold"> {{ $menu->name }}</h5>
                                 <hr>
-                                <h5 class="fw-semibold">Rp.{{ $menu->price }}.000,00</h5>
+                                <h5 class="fw-semibold">Rp {{ number_format($menu->price, 0, ',', '.') }}</h5>
                                 <a href="{{ route('menus.show', $menu->id) }}" class="btn btn-warning w-100 mt-2 fw-semibold">
         Lihat Detail
     </a>

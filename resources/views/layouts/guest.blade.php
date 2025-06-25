@@ -102,18 +102,14 @@
             </ul>
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="{{ route('login') }}" class="nav-link link-dark text-grey px-2 no-effect-hover">Login Admin</a>
+                    <a href="{{ route('login') }}" class="nav-link link-dark text-grey px-2 no-effect-hover">LOGIN</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link link-dark text-grey px-2 no-effect-hover">|</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://wa.me/+628123456789" class="nav-link link-dark text-grey px-2" target="_blank">
-                        +628123456789</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://wa.me/+628987654321" target="_blank"
-                        class="nav-link link-dark text-grey px-2">+628987654321</a>
+                    <a href="https://wa.me/+6285155143677" class="nav-link link-dark text-grey px-2" target="_blank">
+                        Call Center</a>
                 </li>
             </ul>
         </div>
@@ -148,7 +144,7 @@
                         rame, jadi jangan lupa reservasi ya!
                     </p>
                     <small class="d-block mb-3">
-                        &copy; 2022 Syauqizaidan — Made with laravel 9.4.1 and bootstrap 5.2.0
+                        &copy; 2025 Kelompok 3 - TUGAS AKHIR WEB PROGRAMMING II
                     </small>
                 </div>
 

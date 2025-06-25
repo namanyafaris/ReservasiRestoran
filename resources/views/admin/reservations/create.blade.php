@@ -187,6 +187,28 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="form-group col-md-12">
+    <label>Menu yang Dipilih & Jumlah</label>
+    @foreach($menus as $menu)
+        <div class="input-group mb-2">
+            <div class="input-group-text">
+                <input type="checkbox" name="menu_id[]" value="{{ $menu->id }}"
+                    {{ is_array(old('menu_id')) && in_array($menu->id, old('menu_id')) ? 'checked' : '' }}>
+            </div>
+            <input type="text" class="form-control" value="{{ $menu->name }}" readonly>
+            <input type="number" min="1" class="form-control" name="quantity[{{ $menu->id }}]"
+                placeholder="Jumlah"
+                value="{{ old('quantity.' . $menu->id, 1) }}">
+        </div>
+    @endforeach
+    <small class="text-muted">Centang menu & isi jumlah yang diinginkan.</small>
+    @error('menu_id')
+        <p class="register_text_error text-danger">{{ $message }}</p>
+    @enderror
+    @error('quantity')
+        <p class="register_text_error text-danger">{{ $message }}</p>
+    @enderror
+</div>
                                     </div>
 
                                 </div>

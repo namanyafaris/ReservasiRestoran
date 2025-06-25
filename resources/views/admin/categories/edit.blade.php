@@ -80,18 +80,19 @@
                                             </div>
                                         </div>
                                         <div class="form-group col-md-6 ">
-                                            <label for="image">Gambar: <span class="text-danger">*</span></label>
-                                            {{-- upload foto --}}
-                                            <div class="input-group mb-3">
-                                                <div class="custom-file">
-                                                    <input type="file" name="image" class="custom-file-input" id="image"
-                                                        aria-describedby="inputGroupFileAddon01" accept="image/*">>
-                                                    <label class="custom-file-label" for="inputGroupFile01">Pilih file
-                                                        gambar yang
-                                                        akan kamu upload ..</label>
-                                                </div>
+                                        <label for="juimagedul">Gambar: <span class="text-danger">*</span></label>
+                                        {{-- upload foto --}}
+                                        <div class="input-group mb-3">
+                                            <div class="custom-file">
+                                                <input type="file" name="image" class="custom-file-input" id="image"
+                                                    aria-describedby="inputGroupFileAddon01" accept="image/*" onchange="previewGambar()">
+                                                <label class="custom-file-label" for="inputGroupFile01">Pilih file
+                                                    gambar yang
+                                                    akan kamu upload ..</label>
                                             </div>
                                         </div>
+                                        <img id="preview" style="max-width: 100%; margin-top: 10px; max-height: 350px; border-radius: 10px;" />
+                                    </div>
                                     </div>
 
                                     <div class="email-wrapper">
@@ -121,6 +122,20 @@
         <!-- main content end-->
     </div>
     <!-- file wrapper for better tabs start-->
+    <script>
+    function previewGambar() {
+        const input = document.getElementById('image');
+        const preview = document.getElementById('preview');
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 
     @push('ckeditor-scripts')
         <script src="{{ url('cuba/assets/js/editor/ckeditor/ckeditor.js') }}"></script>
