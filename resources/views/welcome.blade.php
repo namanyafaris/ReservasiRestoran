@@ -36,27 +36,27 @@
             <div class="row">
                 <div class="col-lg-2 col-md-4 col-6">
                     <a href="#"><img src="{{ url('images/logo/1.png') }}" class="img-fluid"
-                            alt="Bluehost logo" /></a>
+                            alt="PHP logo" /></a>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
                     <a href="#"><img src="{{ url('images/logo/2.png') }}" class="img-fluid"
-                            alt="Hostgator logo" /></a>
+                            alt="Html logo" /></a>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
                     <a href="#"><img src="{{ url('images/logo/3.png') }}" class="img-fluid"
-                            alt="Green Geeks logo" /></a>
+                            alt="Bootstrap logo" /></a>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
                     <a href="#"><img src="{{ url('images/logo/4.png') }}" class="img-fluid"
-                            alt="WordPress logo" /></a>
+                            alt="JS logo" /></a>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
                     <a href="#"><img src="{{ url('images/logo/5.png') }}" class="img-fluid"
-                            alt="DreamHost logo" /></a>
+                            alt="Laravel logo" /></a>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
                     <a href="#"><img src="{{ url('images/logo/6.png') }}" class="img-fluid"
-                            alt="Hostinger logo" /></a>
+                            alt="BSI logo" /></a>
                 </div>
             </div>
         </div>
@@ -88,7 +88,7 @@
                                             </p>
                                         </div>
                                         <hr>
-                                        <h5 class="fw-semibold">Rp.{{ $menu->price }}.000,00</h5>
+                                        <h5 class="fw-semibold">Rp {{ number_format($menu->price, 0, ',', '.') }}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -215,64 +215,7 @@
     </section>
 
     <!-- ------------------------ #2 Feature Section ------------------------ -->
-    <section class="my-100">
-        <div class="container">
-            <div class="row">
-                <div
-                    class="
-                    order-2 order-md-1
-                    col-12 col-md-12 col-lg-4
-                    me-auto
-                    text-center text-md-start text-lg-start
-                    my-auto
-                  ">
-                    <p class="mb-0 fw-bold text-warning">DIANTERIN KERUMAH</p>
-                    <h2 class="fw-bold">Cocok buat kalian yang suka rebahan dan males keluar</h2>
-                    <div class="row mt-4">
-                        <div class="col-3 col-md-2 col-lg-3 mx-auto">
-                            <div class="p-1 bg-warning rounded-logo text-center">
-                                <i class="fas fa-search py-3" style="color: white; font-size:24px"></i>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-10 col-lg-9 mt-3 mt-md-0 mt-lg-0">
-                            <h5 class="mb-1 fw-semibold">Pilih Menu</h5>
-                            <small>Pilih menu di aplikasi kami dan isi alamat dan data diri kamu</small>
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-3 col-md-2 col-lg-3 mx-auto">
-                            <div class="p-1 bg-warning rounded-logo text-center">
-                                <i class="fas fa-motorcycle py-3" style="color: white; font-size:24px"></i>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-10 col-lg-9 mt-3 mt-md-0 mt-lg-0">
-                            <h5 class="mb-1 fw-semibold">Makanan Dijalan</h5>
-                            <small>Tungguin makanan akan dianterin driver kami ke alamat kamu</small>
-                        </div>
-                    </div>
-                </div>
-                <div
-                    class="
-                    order-1 order-md-2
-                    col-12 col-md-12 col-lg-7
-                    mb-4
-                    mt-lg-0
-                    mb-lg-0
-                    overlay-container
-                  ">
-                    <img src="{{ url('images/landing-page/video.png') }}"
-                        class="img-fluid shadow-images img-video" />
-                    <!-- The overlay area -->
-                    <div class="container__overlay">
-                        <!-- The player button -->
-                        <a target="_blank" href="https://www.youtube.com/">
-                            <i class="fas fa-play-circle text-white play-button"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <!-- ------------------------ Gallery Pictures Section ------------------------ -->
     <section class="my-100" id="galeri-outlet">

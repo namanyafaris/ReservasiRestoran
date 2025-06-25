@@ -19,7 +19,7 @@
             </div>
             <div class="col-md-6">
                 <h2 class="fw-bold">{{ $menu->name }}</h2>
-                <p class="text-muted">Rp {{ $menu->price }}.000,00</p>
+                <p class="text-muted">Rp {{ number_format($menu->price, 0, ',', '.') }}</p>
                 <p>{{ $menu->description }}</p>
                 {{-- Rating Section --}}
                 <div>

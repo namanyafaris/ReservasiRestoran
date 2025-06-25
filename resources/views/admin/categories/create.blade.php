@@ -89,7 +89,7 @@
                                                     akan kamu upload ..</label>
                                             </div>
                                         </div>
-                                        <img id="preview" style="max-width: 200px; margin-top: 10px;" />
+                                        <img id="preview" style="max-width: 100%; margin-top: 10px; max-height: 350px; border-radius: 10px;" />
                                     </div>
                                 </div>
 

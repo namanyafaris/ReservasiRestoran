@@ -101,7 +101,7 @@ class ReservationController extends Controller
         $reservation->load('menus', 'table');
 
         $pdf = Pdf::loadView('reservations.receipt', compact('reservation'));
-        return $pdf->download('struk-reservasi-' . $reservation->id . '.pdf');
+        return $pdf->stream('struk-reservasi-' . $reservation->id . '.pdf');
     }
 
     public function thankyou(Reservation $reservation)
