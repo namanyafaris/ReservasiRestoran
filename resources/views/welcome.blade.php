@@ -36,27 +36,27 @@
             <div class="row">
                 <div class="col-lg-2 col-md-4 col-6">
                     <a href="#"><img src="{{ url('images/logo/1.png') }}" class="img-fluid"
-                            alt="Bluehost logo" /></a>
+                            alt="PHP logo" /></a>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
                     <a href="#"><img src="{{ url('images/logo/2.png') }}" class="img-fluid"
-                            alt="Hostgator logo" /></a>
+                            alt="Html logo" /></a>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
                     <a href="#"><img src="{{ url('images/logo/3.png') }}" class="img-fluid"
-                            alt="Green Geeks logo" /></a>
+                            alt="Bootstrap logo" /></a>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
                     <a href="#"><img src="{{ url('images/logo/4.png') }}" class="img-fluid"
-                            alt="WordPress logo" /></a>
+                            alt="JS logo" /></a>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
                     <a href="#"><img src="{{ url('images/logo/5.png') }}" class="img-fluid"
-                            alt="DreamHost logo" /></a>
+                            alt="Laravel logo" /></a>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
                     <a href="#"><img src="{{ url('images/logo/6.png') }}" class="img-fluid"
-                            alt="Hostinger logo" /></a>
+                            alt="BSI logo" /></a>
                 </div>
             </div>
         </div>

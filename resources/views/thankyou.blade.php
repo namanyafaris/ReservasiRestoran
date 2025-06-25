@@ -396,5 +396,9 @@
             </div>
         </div>
     </section>
-
+    <script>
+    // Hapus data menu & meja dari localStorage setelah reservasi berhasil
+    localStorage.removeItem('selected_menus_quantities');
+    localStorage.removeItem('selected_table_id');
+</script>
 </x-guest-layout>
