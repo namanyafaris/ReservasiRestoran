@@ -29,7 +29,7 @@ class ReservationController extends Controller
         $reservations = Reservation::with(['table', 'menus'])->get();
         // dd($reservations);
         $pdf = Pdf::loadView('admin.reservations.print-all', compact('reservations'));
-        return $pdf->download('semua-reservasi.pdf');
+        return $pdf->stream('semua-reservasi.pdf');
     }
 
     /**
