@@ -15,7 +15,12 @@
         </style>
         <div class="row">
             <div class="col-md-6">
-                <img src="{{ ($menu->image) }}" class="img-fluid rounded shadow fixed-image" />
+                @php
+                $image = Str::startsWith($menu->image, ['http://', 'https://'])
+                ? $menu->image
+                : Storage::url($menu->image);
+                @endphp
+                <img src="{{ ($image) }}" class="img-fluid rounded shadow fixed-image" />
             </div>
             <div class="col-md-6">
                 <h2 class="fw-bold">{{ $menu->name }}</h2>

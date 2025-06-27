@@ -97,12 +97,13 @@
 
                                     <div class="email-wrapper">
                                         <div class="theme-form">
-                                            <div class="form-group">
-                                                <label>Deskripsi Kategori <span class="text-danger">*</span></label>
-                                                <textarea class="form-control" name="description" id="exampleFormControlTextarea1" maxlength="255" rows="3">
-                                                    {{ $category->description }}
-                                                </textarea>
-                                            </div>
+                                            <div class="form-group ">
+                                                <label>Deskripsi <span class="text-danger">*</span></label>
+                                                <div class="border border-socendary rounded">
+                                                <textarea class="form-control" name="description" id="description" maxlength="300"
+                                                    rows="3" style="height: 200px; border-radius: 5px;">{{ $category ->description }}</textarea>
+                                                    </div>
+                                                </div>
                                         </div>
                                     </div>
                                 </div>
@@ -137,16 +138,30 @@
     }
 </script>
 
-    @push('ckeditor-scripts')
-        <script src="{{ url('cuba/assets/js/editor/ckeditor/ckeditor.js') }}"></script>
-        <script src="{{ url('cuba/assets/js/editor/ckeditor/adapters/jquery.js') }}"></script>
-        <script src="{{ url('cuba/assets/js/dropzone/dropzone.js') }}"></script>
-        <script src="{{ url('cuba/assets/js/dropzone/dropzone-script.js') }}"></script>
-        <script src="{{ url('cuba/assets/js/select2/select2.full.min.js') }}"></script>
-        <script src="{{ url('cuba/assets/js/select2/select2-custom.js') }}"></script>
-        <script src="{{ url('cuba/assets/js/email-app.js') }}"></script>
-        <script src="{{ url('cuba/assets/js/form-validation-custom.js') }}"></script>
-        <script src="{{ url('cuba/assets/js/tooltip-init.js') }}"></script>
-    @endpush
+@push('ckeditor-scripts')
+<script src="{{ url('cuba/assets/js/editor/ckeditor/ckeditor.js') }}"></script>
+<script>
+    CKEDITOR.replace('description', {
+        toolbar: [
+            { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
+            { name: 'styles', items: [ 'Format' ] },
+            { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'RemoveFormat' ] },
+            { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
+            { name: 'links', items: [ 'Link', 'Unlink' ] }
+        ],
+        removePlugins: 'elementspath',
+        resize_enabled: false,
+        height: 120
+    });
+</script>
+<script src="{{ url('cuba/assets/js/editor/ckeditor/adapters/jquery.js') }}"></script>
+<script src="{{ url('cuba/assets/js/dropzone/dropzone.js') }}"></script>
+<script src="{{ url('cuba/assets/js/dropzone/dropzone-script.js') }}"></script>
+<script src="{{ url('cuba/assets/js/select2/select2.full.min.js') }}"></script>
+<script src="{{ url('cuba/assets/js/select2/select2-custom.js') }}"></script>
+<script src="{{ url('cuba/assets/js/email-app.js') }}"></script>
+<script src="{{ url('cuba/assets/js/form-validation-custom.js') }}"></script>
+<script src="{{ url('cuba/assets/js/tooltip-init.js') }}"></script>
+@endpush
 
 @endsection

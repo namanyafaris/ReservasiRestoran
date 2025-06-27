@@ -50,12 +50,15 @@
                                     <td>
                                         <div class="d-flex py-1 align-items-center">
                                             <div class="avatars mr-2">
-                                                <div class="avatar ratio">
-                                                    <img style="object-fit: cover;
-                                                                                                                                        width: 40px;
-                                                                                                                                        height: 40px;"
-                                                        class="b-r-8"
-                                                        src="{{ ($item->image) }}?colors=FAD089,FF9C5B,F5634A,ED303C,3B8183">
+                                            <div class="avatar ratio">
+                                                    @php
+                                                    $image = Str::startsWith($item->image, ['http://', 'https://'])
+                                                    ? $item->image
+                                                    : Storage::url($item->image);
+                                                    @endphp
+                                                    <img src="{{ $image }}" alt="Gambar Menu"
+                                                        style="object-fit: cover; width: 40px; height: 40px;"
+                                                        class="b-r-8">
                                                 </div>
                                             </div>
                                             <div class="flex-fill">

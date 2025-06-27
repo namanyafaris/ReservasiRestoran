@@ -33,7 +33,12 @@
                 @foreach ($categories as $category)
                 <div class="col-md-3">
                     <div class="card card-borderless-shadow card-min-height">
-                        <img src="{{ ($category->image) }}"
+                        @php
+                        $image = Str::startsWith($caategory->image, ['http://', 'https://'])
+                        ? $caategory->image
+                        : Storage::url($caategory->image);
+                        @endphp
+                        <img src="{{ ($image) }}"
                             class="card-img-top card-img-top-landing-page" />
                         <div class="card-body">
                             <h5 class="card-title fw-bold"> {{ $category->name }}</h5>

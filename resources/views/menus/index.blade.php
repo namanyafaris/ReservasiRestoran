@@ -90,7 +90,12 @@
                         @foreach ($menus as $menu)
                         <div class="col-md-4">
                             <div class="card card-borderless-shadow card-min-height">
-                                <img src="{{ ($menu->image) }}"
+                                @php
+                                $image = Str::startsWith($menu->image, ['http://', 'https://'])
+                                ? $menu->image
+                                : Storage::url($menu->image);
+                                @endphp
+                                <img src="{{ ($image) }}"
                                     class="card-img-top card-img-top-menus" />
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold"> {{ $menu->name }}</h5>

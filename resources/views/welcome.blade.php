@@ -78,7 +78,12 @@
                             @forelse ($menus as $menu)
                             <div class="swiper-slide">
                                 <div class="card">
-                                    <img src="{{ ($menu->image) }}"
+                                    @php
+                                    $image = Str::startsWith($menu->image, ['http://', 'https://'])
+                                    ? $menu->image
+                                    : Storage::url($menu->image);
+                                    @endphp
+                                    <img src="{{ ($image) }}"
                                         class="card-img-top card-img-top-landing-page" />
                                     <div class="card-body">
                                         <h5 class="card-title fw-bold"> {{ $menu->name }}</h5>
@@ -192,8 +197,13 @@
                 @forelse ($categories as $cat)
                 <div class="col-md-4 col-lg-3">
                     <div class="card card-in-home bg-warning text-white text-center">
+                        @php
+                        $image = Str::startsWith($cat->image, ['http://', 'https://'])
+                        ? $cat->image
+                        : Storage::url($cat->image);
+                        @endphp
                         <img class="card-img-top card-img-top-category-landing-page"
-                            src="{{ ($cat->image) }}" alt="" srcset="">
+                            src="{{ ($image) }}" alt="" srcset="">
                         <div class="card-body">
                             <h5 class="card-title fw-bold mt-1">{{ $cat->name }}</h5>
                             <div class="category-card-description-wrapper">

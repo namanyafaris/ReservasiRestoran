@@ -16,8 +16,12 @@
                             </button>
                         </div>
                         <div class="col-md-4 my-auto p-0">
-                          
-                                <img src="{{($category->image) }}" class="img-fluid img-jumbotron d-none d-md-block rounded-end
+                            @php
+                                                    $image = Str::startsWith($category->image, ['http://', 'https://'])
+                                                    ? $category->image
+                                                    : Storage::url($category->image);
+                                                    @endphp
+                                <img src="{{($image) }}" class="img-fluid img-jumbotron d-none d-md-block rounded-end
                                 " />
                         </div>
                     </div>
