@@ -16,9 +16,7 @@
                             </button>
                         </div>
                         <div class="col-md-4 my-auto p-0">
-                            <<<<<<< HEAD
-                                <img src="{{($category->image) }}">>>>>>> 06bdac295dcc5d308052de2a004b4f422bb3ab18
-                                class="img-fluid img-jumbotron d-none d-md-block" />
+                            <img src="{{($category->image) }}" class="img-fluid img-jumbotron d-none d-md-block" />
                         </div>
                     </div>
                 </div>
