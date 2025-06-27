@@ -20,7 +20,6 @@
                         <p>
                             Dibawah ini adalah halaman untuk tambah menu. <span class="d-none d-md-inline">
                                 Menu yang telah kamu tambahkan nantinya muncul di halaman landing page
-
                             </span>
                         </p>
                     </div>
@@ -128,11 +127,13 @@
 
                                     <div class="email-wrapper">
                                         <div class="theme-form">
-                                            <div class="form-group">
+                                            <div class="form-group ">
                                                 <label>Deskripsi <span class="text-danger">*</span></label>
-                                                <textarea class="form-control" name="description" id="exampleFormControlTextarea1" maxlength="255"
-                                                    rows="3"></textarea>
-                                            </div>
+                                                <div class="border border-socendary rounded">
+                                                <textarea class="form-control" name="description" id="description" maxlength="300"
+                                                    rows="3" style="height: 200px; border-radius: 5px;">{{ old('description') }}</textarea>
+                                                    </div>
+                                                </div>
                                         </div>
                                     </div>
                                     <div class="form-row">
@@ -160,10 +161,6 @@
                                         </div>
                                     </div> 
                                 </div>
-
-                             
-                                  
-                            
 
                                 <div class="col-sm-12">
                                     <div class="btn-showcase">
@@ -193,10 +190,24 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
-</script>
+    </script>
 
     @push('ckeditor-scripts')
         <script src="{{ url('cuba/assets/js/editor/ckeditor/ckeditor.js') }}"></script>
+        <script>
+            CKEDITOR.replace('description', {
+                toolbar: [
+                    { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
+                    { name: 'styles', items: [ 'Format' ] },
+                    { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'RemoveFormat' ] },
+                    { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
+                    { name: 'links', items: [ 'Link', 'Unlink' ] }
+                ],
+                removePlugins: 'elementspath',
+                resize_enabled: false,
+                height: 120
+            });
+        </script>
         <script src="{{ url('cuba/assets/js/editor/ckeditor/adapters/jquery.js') }}"></script>
         <script src="{{ url('cuba/assets/js/dropzone/dropzone.js') }}"></script>
         <script src="{{ url('cuba/assets/js/dropzone/dropzone-script.js') }}"></script>
