@@ -109,7 +109,9 @@
                                                         akan kamu upload ..</label>
                                                 </div>
                                             </div>
-                                            <img id="preview" class="col-12" style="margin-top: 10px; max-height: 400px; border-radius: 10px;" />
+                                            <img id="preview" class="col-12 d-block mx-auto"
+                                                 style="margin-top: 30px; max-height: 450px; border-radius: 10px; max-width: 450px;"
+                                            />
                                         </div>
 
                                         <div class="form-group col-md-12">
