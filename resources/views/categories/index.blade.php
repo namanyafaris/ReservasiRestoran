@@ -34,9 +34,9 @@
                 <div class="col-md-3">
                     <div class="card card-borderless-shadow card-min-height">
                         @php
-                        $image = Str::startsWith($caategory->image, ['http://', 'https://'])
-                        ? $caategory->image
-                        : Storage::url($caategory->image);
+                        $image = Str::startsWith($category->image, ['http://', 'https://'])
+                        ? $category->image
+                        : Storage::url($category->image);
                         @endphp
                         <img src="{{ ($image) }}"
                             class="card-img-top card-img-top-landing-page" />
