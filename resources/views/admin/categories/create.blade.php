@@ -83,22 +83,25 @@
                                         <div class="input-group mb-3">
                                             <div class="custom-file">
                                                 <input type="file" name="image" class="custom-file-input" id="image"
-                                                    aria-describedby="inputGroupFileAddon01" accept="image/*">
+                                                    aria-describedby="inputGroupFileAddon01" accept="image/*" onchange="previewGambar()">
                                                 <label class="custom-file-label" for="inputGroupFile01">Pilih file
                                                     gambar yang
                                                     akan kamu upload ..</label>
                                             </div>
                                         </div>
+                                        <img id="preview" style="max-width: 100%; margin-top: 10px; max-height: 350px; border-radius: 10px;" />
                                     </div>
                                 </div>
 
                                 <div class="email-wrapper">
                                     <div class="theme-form">
-                                        <div class="form-group">
-                                            <label>Deskripsi Kategori <span class="text-danger">*</span></label>
-                                            <textarea class="form-control" name="description" id="exampleFormControlTextarea1" maxlength="255"
-                                                rows="3"></textarea>
-                                        </div>
+                                        <div class="form-group ">
+                                            <label>Deskripsi <span class="text-danger">*</span></label>
+                                            <div class="border border-socendary rounded">
+                                            <textarea class="form-control" name="description" id="description" maxlength="300"
+                                                rows="3" style="height: 200px; border-radius: 5px;">{{ old('description') }}</textarea>
+                                                </div>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -119,8 +122,37 @@
 </div>
 <!-- file wrapper for better tabs start-->
 
+<script>
+    function previewGambar() {
+        const input = document.getElementById('image');
+        const preview = document.getElementById('preview');
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
 @push('ckeditor-scripts')
 <script src="{{ url('cuba/assets/js/editor/ckeditor/ckeditor.js') }}"></script>
+<script>
+    CKEDITOR.replace('description', {
+        toolbar: [
+            { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
+            { name: 'styles', items: [ 'Format' ] },
+            { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'RemoveFormat' ] },
+            { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
+            { name: 'links', items: [ 'Link', 'Unlink' ] }
+        ],
+        removePlugins: 'elementspath',
+        resize_enabled: false,
+        height: 120
+    });
+</script>
 <script src="{{ url('cuba/assets/js/editor/ckeditor/adapters/jquery.js') }}"></script>
 <script src="{{ url('cuba/assets/js/dropzone/dropzone.js') }}"></script>
 <script src="{{ url('cuba/assets/js/dropzone/dropzone-script.js') }}"></script>

@@ -31,22 +31,27 @@
         <div class="container mt-4 mb-5">
             <div class="row g-3">
                 @foreach ($categories as $category)
-                    <div class="col-md-3">
-                        <div class="card card-borderless-shadow card-min-height">
-                            <img src="{{ Storage::url($category->image) }}"
-                                class="card-img-top card-img-top-landing-page" />
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold"> {{ $category->name }}</h5>
-                                <div class="category-card-description-wrapper">
-                                    <p class="card-text category-card-description" style="font-size: 13px;">
-                                        {{ $category->description }}
-                                    </p>
-                                </div>
-                                <a href="{{ route('categories.show', $category->id) }}"
-                                    class="text-white fs-12 btn btn-warning mt-3">Selengkapnya ⇾</a>
+                <div class="col-md-3">
+                    <div class="card card-borderless-shadow card-min-height">
+                        @php
+                        $image = Str::startsWith($caategory->image, ['http://', 'https://'])
+                        ? $caategory->image
+                        : Storage::url($caategory->image);
+                        @endphp
+                        <img src="{{ ($image) }}"
+                            class="card-img-top card-img-top-landing-page" />
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold"> {{ $category->name }}</h5>
+                            <div class="category-card-description-wrapper">
+                                <p class="card-text category-card-description" style="font-size: 13px;">
+                                    {{ $category->description }}
+                                </p>
                             </div>
+                            <a href="{{ route('categories.show', $category->id) }}"
+                                class="text-white fs-12 btn btn-warning mt-3">Selengkapnya ⇾</a>
                         </div>
                     </div>
+                </div>
                 @endforeach
             </div>
         </div>

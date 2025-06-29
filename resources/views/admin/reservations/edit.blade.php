@@ -88,22 +88,28 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <!-- MENU MULTI SELECT -->
                                     <div class="form-group col-md-12">
-                                        <label for="menu_id">Menu yang Dipilih</label>
-                                        <select name="menu_id[]" id="menu_id" class="form-control select2" multiple required>
-                                            @foreach($menus as $menu)
-                                                <option value="{{ $menu->id }}"
-                                                    @if(collect(old('menu_id', $reservation->menus->pluck('id') ?? []))->contains($menu->id)) selected @endif>
-                                                    {{ $menu->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        <small class="text-muted">Pilih satu atau lebih menu untuk reservasi ini.</small>
-                                        @error('menu_id')
-                                            <p class="register_text_error text-danger">{{ $message }}</p>
-                                        @enderror
-                                    </div>
+    <label>Menu yang Dipilih & Jumlah</label>
+    @foreach($menus as $menu)
+        <div class="input-group mb-2">
+            <div class="input-group-text">
+                <input type="checkbox" name="menu_id[]" value="{{ $menu->id }}"
+                    {{ in_array($menu->id, old('menu_id', $reservation->menus->pluck('id')->toArray())) ? 'checked' : '' }}>
+            </div>
+            <input type="text" class="form-control" value="{{ $menu->name }}" readonly>
+            <input type="number" min="1" class="form-control" name="quantity[{{ $menu->id }}]"
+                placeholder="Jumlah"
+                value="{{ old('quantity.' . $menu->id, optional($reservation->menus->find($menu->id))->pivot->quantity ?? 1) }}">
+        </div>
+    @endforeach
+    <small class="text-muted">Centang menu & isi jumlah yang diinginkan.</small>
+    @error('menu_id')
+        <p class="register_text_error text-danger">{{ $message }}</p>
+    @enderror
+    @error('quantity')
+        <p class="register_text_error text-danger">{{ $message }}</p>
+    @enderror
+</div>
                                 </div>
                             </div>
                             <div class="col-sm-12">

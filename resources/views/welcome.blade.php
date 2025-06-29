@@ -36,27 +36,27 @@
             <div class="row">
                 <div class="col-lg-2 col-md-4 col-6">
                     <a href="#"><img src="{{ url('images/logo/1.png') }}" class="img-fluid"
-                            alt="Bluehost logo" /></a>
+                            alt="PHP logo" /></a>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
                     <a href="#"><img src="{{ url('images/logo/2.png') }}" class="img-fluid"
-                            alt="Hostgator logo" /></a>
+                            alt="Html logo" /></a>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
                     <a href="#"><img src="{{ url('images/logo/3.png') }}" class="img-fluid"
-                            alt="Green Geeks logo" /></a>
+                            alt="Bootstrap logo" /></a>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
                     <a href="#"><img src="{{ url('images/logo/4.png') }}" class="img-fluid"
-                            alt="WordPress logo" /></a>
+                            alt="JS logo" /></a>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
                     <a href="#"><img src="{{ url('images/logo/5.png') }}" class="img-fluid"
-                            alt="DreamHost logo" /></a>
+                            alt="Laravel logo" /></a>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
                     <a href="#"><img src="{{ url('images/logo/6.png') }}" class="img-fluid"
-                            alt="Hostinger logo" /></a>
+                            alt="BSI logo" /></a>
                 </div>
             </div>
         </div>
@@ -76,24 +76,29 @@
                     <div class="swiper menu-swiper">
                         <div class="swiper-wrapper">
                             @forelse ($menus as $menu)
-                                <div class="swiper-slide">
-                                    <div class="card">
-                                        <img src="{{ Storage::url($menu->image) }}"
-                                            class="card-img-top card-img-top-landing-page" />
-                                        <div class="card-body">
-                                            <h5 class="card-title fw-bold"> {{ $menu->name }}</h5>
-                                            <div class="category-card-description-wrapper">
-                                                <p class="card-text category-card-description" style="font-size: 13px;">
-                                                    {{ $menu->description }}
-                                                </p>
-                                            </div>
-                                            <hr>
-                                            <h5 class="fw-semibold">Rp.{{ $menu->price }}.000,00</h5>
+                            <div class="swiper-slide">
+                                <div class="card">
+                                    @php
+                                    $image = Str::startsWith($menu->image, ['http://', 'https://'])
+                                    ? $menu->image
+                                    : Storage::url($menu->image);
+                                    @endphp
+                                    <img src="{{ ($image) }}"
+                                        class="card-img-top card-img-top-landing-page" />
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold"> {{ $menu->name }}</h5>
+                                        <div class="category-card-description-wrapper">
+                                            <p class="card-text category-card-description" style="font-size: 13px;">
+                                                {{ $menu->description }}
+                                            </p>
                                         </div>
+                                        <hr>
+                                        <h5 class="fw-semibold">Rp {{ number_format($menu->price, 0, ',', '.') }}</h5>
                                     </div>
                                 </div>
+                            </div>
                             @empty
-                                <p>gak ada menu euy</p>
+                            <p>gak ada menu euy</p>
                             @endforelse
                         </div>
                     </div>
@@ -190,89 +195,37 @@
             </div>
             <div class="row g-3">
                 @forelse ($categories as $cat)
-                    <div class="col-md-4 col-lg-3">
-                        <div class="card card-in-home bg-warning text-white text-center">
-                            <img class="card-img-top card-img-top-category-landing-page"
-                                src="{{ Storage::url($cat->image) }}" alt="" srcset="">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold mt-1">{{ $cat->name }}</h5>
-                                <div class="category-card-description-wrapper">
-                                    <p class="card-text category-card-description" style="font-size: 14px;">
-                                        {{ $cat->description }}
-                                    </p>
-                                </div>
-                                <a href="{{ route('categories.show', $cat->id) }}"
-                                    class="btn btn-outline-light fs-12">Lihat Semua &nbsp;
-                                    <small class="arrow-category-button">→</small></a>
+                <div class="col-md-4 col-lg-3">
+                    <div class="card card-in-home bg-warning text-white text-center">
+                        @php
+                        $image = Str::startsWith($cat->image, ['http://', 'https://'])
+                        ? $cat->image
+                        : Storage::url($cat->image);
+                        @endphp
+                        <img class="card-img-top card-img-top-category-landing-page"
+                            src="{{ ($image) }}" alt="" srcset="">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold mt-1">{{ $cat->name }}</h5>
+                            <div class="category-card-description-wrapper">
+                                <p class="card-text category-card-description" style="font-size: 14px;">
+                                    {{ $cat->description }}
+                                </p>
                             </div>
+                            <a href="{{ route('categories.show', $cat->id) }}"
+                                class="btn btn-outline-light fs-12">Lihat Semua &nbsp;
+                                <small class="arrow-category-button">→</small></a>
                         </div>
                     </div>
+                </div>
                 @empty
-                    <p>gak ada kategori euy</p>
+                <p>gak ada kategori euy</p>
                 @endforelse
             </div>
         </div>
     </section>
 
     <!-- ------------------------ #2 Feature Section ------------------------ -->
-    <section class="my-100">
-        <div class="container">
-            <div class="row">
-                <div
-                    class="
-                    order-2 order-md-1
-                    col-12 col-md-12 col-lg-4
-                    me-auto
-                    text-center text-md-start text-lg-start
-                    my-auto
-                  ">
-                    <p class="mb-0 fw-bold text-warning">DIANTERIN KERUMAH</p>
-                    <h2 class="fw-bold">Cocok buat kalian yang suka rebahan dan males keluar</h2>
-                    <div class="row mt-4">
-                        <div class="col-3 col-md-2 col-lg-3 mx-auto">
-                            <div class="p-1 bg-warning rounded-logo text-center">
-                                <i class="fas fa-search py-3" style="color: white; font-size:24px"></i>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-10 col-lg-9 mt-3 mt-md-0 mt-lg-0">
-                            <h5 class="mb-1 fw-semibold">Pilih Menu</h5>
-                            <small>Pilih menu di aplikasi kami dan isi alamat dan data diri kamu</small>
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-3 col-md-2 col-lg-3 mx-auto">
-                            <div class="p-1 bg-warning rounded-logo text-center">
-                                <i class="fas fa-motorcycle py-3" style="color: white; font-size:24px"></i>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-10 col-lg-9 mt-3 mt-md-0 mt-lg-0">
-                            <h5 class="mb-1 fw-semibold">Makanan Dijalan</h5>
-                            <small>Tungguin makanan akan dianterin driver kami ke alamat kamu</small>
-                        </div>
-                    </div>
-                </div>
-                <div
-                    class="
-                    order-1 order-md-2
-                    col-12 col-md-12 col-lg-7
-                    mb-4
-                    mt-lg-0
-                    mb-lg-0
-                    overlay-container
-                  ">
-                    <img src="{{ url('images/landing-page/video.png') }}"
-                        class="img-fluid shadow-images img-video" />
-                    <!-- The overlay area -->
-                    <div class="container__overlay">
-                        <!-- The player button -->
-                        <a target="_blank" href="https://www.youtube.com/">
-                            <i class="fas fa-play-circle text-white play-button"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <!-- ------------------------ Gallery Pictures Section ------------------------ -->
     <section class="my-100" id="galeri-outlet">
@@ -284,26 +237,26 @@
             </div>
             <div class="row">
                 <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                    <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         class="w-100 shadow-1-strong rounded mb-4" alt="Boat on Calm Water" />
 
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain1.webp"
+                    <img src="https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?q=80&w=685&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         class="w-100 shadow-1-strong rounded mb-4" alt="Wintry Mountain Landscape" />
                 </div>
 
                 <div class="col-lg-4 mb-4 mb-lg-0">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain2.webp"
+                    <img src="https://images.unsplash.com/photo-1578474846511-04ba529f0b88?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         class="w-100 shadow-1-strong rounded mb-4" alt="Mountains in the Clouds" />
 
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+                    <img src="https://images.unsplash.com/photo-1481833761820-0509d3217039?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         class="w-100 shadow-1-strong rounded mb-4" alt="Boat on Calm Water" />
                 </div>
 
                 <div class="col-lg-4 mb-4 mb-lg-0">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(18).webp"
+                    <img src="https://images.unsplash.com/photo-1680674814945-7945d913319c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         class="w-100 shadow-1-strong rounded mb-4" alt="Waves at Sea" />
 
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain3.webp"
+                    <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDZ8fHJlc3RhdXJhbnR8ZW58MHx8MHx8fDA%3D"
                         class="w-100 shadow-1-strong rounded mb-4" alt="Yosemite National Park" />
                 </div>
             </div>

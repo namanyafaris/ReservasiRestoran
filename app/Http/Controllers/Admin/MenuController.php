@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use illuminate\Support\Str;
 
 class MenuController extends Controller
 {
@@ -49,8 +50,6 @@ class MenuController extends Controller
             'description' => $request->description,
             'image' => $image,
             'price' => $request->price,
-            'ingredients' => $request->ingredients,
-            'calories' => $request->calories,
             'rating' => $request->rating
         ]);
 

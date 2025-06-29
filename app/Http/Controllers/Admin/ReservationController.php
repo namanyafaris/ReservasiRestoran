@@ -10,6 +10,7 @@ use App\Models\Reservation;
 use App\Models\Table;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf; // Pastikan Anda telah menginstal barryvdh/laravel-dompdf
 
 class ReservationController extends Controller
 {
@@ -23,6 +24,13 @@ class ReservationController extends Controller
         $reservations = Reservation::all();
         return view('admin.reservations.index', compact('reservations'));
     }
+    public function printAll()
+    {
+        $reservations = Reservation::with(['table', 'menus'])->get();
+        // dd($reservations);
+        $pdf = Pdf::loadView('admin.reservations.print-all', compact('reservations'));
+        return $pdf->stream('semua-reservasi.pdf');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -31,8 +39,9 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        $tables = Table::where('status', TableStatus::Avalaiable)->get();
-        return view('admin.reservations.create', compact('tables'));
+        $tables = Table::where('status', TableStatus::Available)->get();
+        $menus = Menu::all(); // Tambahkan baris ini
+        return view('admin.reservations.create', compact('tables', 'menus')); // Tambahkan 'menus' ke compact
     }
 
     /**
@@ -54,12 +63,16 @@ class ReservationController extends Controller
             }
         }
         $reservation = Reservation::create($request->validated());
-    
-        // Simpan menu ke pivot
+
         if ($request->has('menu_id')) {
-            $reservation->menus()->sync($request->menu_id);
+            $syncData = [];
+            foreach ($request->menu_id as $menuId) {
+                $syncData[$menuId] = [
+                    'quantity' => $request->quantity[$menuId] ?? 1,
+                ];
+            }
+            $reservation->menus()->sync($syncData);
         }
-    
         return to_route('admin.reservations.index')->with('success', 'Reservation created successfully.');
     }
 
@@ -82,8 +95,8 @@ class ReservationController extends Controller
      */
     public function edit(Reservation $reservation)
     {
-        
-        $tables = Table::where('status', TableStatus::Avalaiable)->get();
+
+        $tables = Table::where('status', TableStatus::Available)->get();
         $menus = Menu::all();
         return view('admin.reservations.edit', compact('reservation', 'tables', 'menus'));
     }
@@ -111,7 +124,13 @@ class ReservationController extends Controller
 
         $reservation->update($request->validated());
         if ($request->has('menu_id')) {
-            $reservation->menus()->sync($request->menu_id);
+            $syncData = [];
+            foreach ($request->menu_id as $menuId) {
+                $syncData[$menuId] = [
+                    'quantity' => $request->quantity[$menuId] ?? 1,
+                ];
+            }
+            $reservation->menus()->sync($syncData);
         }
         return to_route('admin.reservations.index')->with('success', 'Reservation updated successfully.');
     }

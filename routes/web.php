@@ -20,9 +20,12 @@ Route::get('/reservation/step-one', [FrontendReservationController::class, 'step
 Route::post('/reservation/step-one', [FrontendReservationController::class, 'storeStepOne'])->name('reservations.store.step.one');
 Route::get('/reservation/step-two', [FrontendReservationController::class, 'stepTwo'])->name('reservations.step.two');
 Route::post('/reservation/step-two', [FrontendReservationController::class, 'storeStepTwo'])->name('reservations.store.step.two');
+Route::get('/thankyou/{reservation}', [FrontendReservationController::class, 'thankyou'])->name('thankyou');
+Route::get('/reservations/{reservation}/receipt', [FrontendReservationController::class, 'printReceipt'])->name('reservations.receipt');
+
 // //ajax enndpoint
 // Route::get('/reservations/get-menus', [ReservationController::class, 'getMenusByCategory'])->name('reservations.getMenusByCategory');
-Route::get('/thankyou', [WelcomeController::class, 'thankyou'])->name('thankyou');
+// Route::get('/thankyou', [WelcomeController::class, 'thankyou'])->name('thankyou');
 Route::get('/menu/{id}', [FrontendMenuController::class, 'show'])->name('menus.show');
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -33,6 +36,7 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::resource('/categories', CategoryController::class);
     Route::resource('/menus', MenuController::class);
     Route::resource('/tables', TableController::class);
+    Route::get('/reservations/print-all', [ReservationController::class, 'printAll'])->name('reservations.printAll');
     Route::resource('/reservations', ReservationController::class);
 });
 
