@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\CategoryController as FrontendCategoryControll
 use App\Http\Controllers\Frontend\MenuController as FrontendMenuController;
 use App\Http\Controllers\Frontend\ReservationController as FrontendReservationController;
 use App\Http\Controllers\Frontend\WelcomeController;
+use App\Models\Menu;
 use Illuminate\Support\Facades\Route;
 
 
@@ -34,6 +35,7 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
     Route::resource('/categories', CategoryController::class);
+    Route::get('/menus/print-all', [MenuController::class, 'printAll'])->name('menus.printAll');
     Route::resource('/menus', MenuController::class);
     Route::get('/tables/print-all', [TableController::class, 'printAll'])->name('tables.printAll');
     Route::resource('/tables', TableController::class);

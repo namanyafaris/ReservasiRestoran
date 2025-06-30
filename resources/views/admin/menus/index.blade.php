@@ -35,6 +35,9 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
+                    <a href="{{ route('admin.menus.printAll') }}" class="btn btn-success m-10">
+                        Cetak Data Menu (PDF)
+                    </a>
                     <div class="dt-ext table-responsive">
                         <table class="display" id="auto-fill">
                             <thead>

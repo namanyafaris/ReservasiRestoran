@@ -9,6 +9,7 @@ use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use illuminate\Support\Str;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MenuController extends Controller
 {
@@ -120,5 +121,12 @@ class MenuController extends Controller
         $menu->categories()->detach();
         $menu->delete();
         return to_route('admin.menus.index')->with('danger', 'Menu deleted successfully.');
+    }
+
+    public function printAll()
+    {
+        $menus = Menu::all();
+        $pdf = Pdf::loadView('admin.menus.print-all', compact('menus'));
+        return $pdf->stream('menus.pdf');
     }
 }
