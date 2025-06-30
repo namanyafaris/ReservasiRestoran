@@ -47,7 +47,6 @@
 				<th>Nama Menu</th>
 				<th>Deskripsi</th>
 				<th>Harga</th>
-
 			</tr>
 		</thead>
 		<tbody>
