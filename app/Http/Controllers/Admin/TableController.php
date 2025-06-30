@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TableStoreRequest;
 use App\Models\Table;
 use Illuminate\Http\Request;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 use function Ramsey\Uuid\v1;
 
 class TableController extends Controller
@@ -98,5 +98,12 @@ class TableController extends Controller
         $table->delete();
 
         return to_route('admin.tables.index')->with('danger', 'Table daleted successfully.');
+    }
+
+    public function printAll()
+    {
+        $tables = Table::all();
+        $pdf = Pdf::loadView('admin.tables.print-all', compact('tables'));
+        return $pdf->stream('tables.pdf');
     }
 }

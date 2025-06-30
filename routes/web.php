@@ -35,6 +35,7 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::get('/', [AdminController::class, 'index'])->name('index');
     Route::resource('/categories', CategoryController::class);
     Route::resource('/menus', MenuController::class);
+    Route::get('/tables/print-all', [TableController::class, 'printAll'])->name('tables.printAll');
     Route::resource('/tables', TableController::class);
     Route::get('/reservations/print-all', [ReservationController::class, 'printAll'])->name('reservations.printAll');
     Route::resource('/reservations', ReservationController::class);
