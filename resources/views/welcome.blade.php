@@ -283,8 +283,7 @@
                                             Tempat nyaman dan aman
                                         </h5>
                                         <p class="card-text mb-4">
-                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum a eveniet
-                                            consectetur ipsum accusantium alias dignissimos
+                                            Saya sangat puas dengan suasana restoran ini, tempatnya bersih dan nyaman untuk makan bersama keluarga. Pelayanan juga sangat ramah!
                                         </p>
                                         <hr />
                                         <div class="row">
@@ -310,8 +309,7 @@
                                             Makanan Enak Banget Banget!
                                         </h5>
                                         <p class="card-text mb-4">
-                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum a eveniet
-                                            consectetur ipsum accusantium alias dignissimos
+                                            Menu makanannya bervariasi dan rasanya enak banget. Setiap kali ke sini selalu mencoba menu baru dan tidak pernah kecewa!
                                         </p>
                                         <hr />
                                         <div class="row">
@@ -337,8 +335,7 @@
                                             Pegawai nya cantik dan ganteng
                                         </h5>
                                         <p class="card-text mb-4">
-                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum a eveniet
-                                            consectetur ipsum accusantium alias dignissimos
+                                            Selain makanannya enak, pegawai di sini juga sangat sopan dan membantu. Pokoknya pengalaman makan di sini selalu menyenangkan!
                                         </p>
                                         <hr />
                                         <div class="row">

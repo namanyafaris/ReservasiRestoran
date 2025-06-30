@@ -152,27 +152,27 @@
                     <h4 class="fw-bold mb-3">Navigasi Cepat</h4>
                     <ul class="list-unstyled">
                         <li class="mb-1">
-                            <a class="link-light text-decoration-none" href="/userlisting?srczz=&katfilt=6901">
+                            <a class="link-light text-decoration-none" href="#1">
                                 Beranda
                             </a>
                         </li>
                         <li class="mb-1">
-                            <a class="link-light text-decoration-none" href="/userlisting?srczz=&katfilt=6905">
+                            <a class="link-light text-decoration-none" href="#5">
                                 Tentang Kami
                             </a>
                         </li>
                         <li class="mb-1">
-                            <a class="link-light text-decoration-none" href="/userlisting?srczz=&katfilt=6904">
+                            <a class="link-light text-decoration-none" href="#4">
                                 Kategori
                             </a>
                         </li>
                         <li class="mb-1">
-                            <a class="link-light text-decoration-none" href="/userlisting?srczz=&katfilt=6902">
+                            <a class="link-light text-decoration-none" href="#2">
                                 Menu
                             </a>
                         </li>
                         <li class="mb-1">
-                            <a class="link-light text-decoration-none" href="/userlisting?srczz=&katfilt=6903">
+                            <a class="link-light text-decoration-none" href="#">
                                 Galeri Outlet
                             </a>
                         </li>

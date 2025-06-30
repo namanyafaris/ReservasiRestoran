@@ -25,7 +25,7 @@
 </head>
 
 <body>
-	<h2>Struk Reservasi Restoran Fensi</h2>
+	<h2>Struk Reservasi Restoran KELOMPOK 3</h2>
 	<p><strong>Nama:</strong> {{ $reservation->first_name ?? '' }} {{ $reservation->last_name ?? '' }}</p>
 	<p><strong>Tanggal / Waktu:</strong> {{ $reservation->res_date ? \Carbon\Carbon::parse($reservation->res_date)->format('d-m-Y H:i') : '-' }}</p>
 	<p><strong>Meja:</strong> {{ $reservation->table->name ?? '-' }}</p>

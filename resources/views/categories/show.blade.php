@@ -17,11 +17,11 @@
                         </div>
                         <div class="col-md-4 my-auto p-0">
                             @php
-                                                    $image = Str::startsWith($category->image, ['http://', 'https://'])
-                                                    ? $category->image
-                                                    : Storage::url($category->image);
-                                                    @endphp
-                                <img src="{{($image) }}" class="img-fluid img-jumbotron d-none d-md-block rounded-end
+                            $image = Str::startsWith($category->image, ['http://', 'https://'])
+                            ? $category->image
+                            : Storage::url($category->image);
+                            @endphp
+                            <img src="{{($image) }}" class="img-fluid img-jumbotron d-none d-md-block rounded-end
                                 " />
                         </div>
                     </div>
@@ -37,7 +37,12 @@
                 @foreach ($category->menus as $menu)
                 <div class="col-md-3">
                     <div class="card card-borderless-shadow card-min-height">
-                        <img src="{{($menu->image) }}"
+                        @php
+                        $image = Str::startsWith($menu->image, ['http://', 'https://'])
+                        ? $menu->image
+                        : Storage::url($menu->image);
+                        @endphp
+                        <img src="{{($image) }}"
                             class="card-img-top card-img-top-landing-page" />
                         <div class="card-body">
                             <h5 class="card-title fw-bold"> {{ $menu->name }}</h5>
